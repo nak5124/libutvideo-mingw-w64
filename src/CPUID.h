@@ -25,10 +25,10 @@ static inline void cpuid(cpuid_result *result, uint32_t leaf, uint32_t subleaf)
 	(
 		"cpuid"
 		:
-		"=a"(res->eax),
-		"=b"(res->ebx),
-		"=c"(res->ecx),
-		"=d"(res->edx)
+		"=a"(result->eax),
+		"=b"(result->ebx),
+		"=c"(result->ecx),
+		"=d"(result->edx)
 		:
 		"a"(leaf),
 		"c"(subleaf)
@@ -61,8 +61,8 @@ static inline void xgetbv(xgetbv_result *result, uint32_t idx)
 	(
 		"xgetbv"
 		:
-		"=a"(res->eax),
-		"=d"(res->edx)
+		"=a"(result->eax),
+		"=d"(result->edx)
 		:
 		"c"(idx)
 	);
