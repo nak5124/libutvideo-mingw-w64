@@ -1,4 +1,3 @@
-/* •¶šƒR[ƒh‚Í‚r‚i‚h‚r ‰üsƒR[ƒh‚Í‚b‚q‚k‚e */
 /* $Id: Thread.cpp 1122 2013-12-21 08:13:20Z umezawa $ */
 
 #include "stdafx.h"

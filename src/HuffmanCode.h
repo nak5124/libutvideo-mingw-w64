@@ -1,4 +1,3 @@
-/* 文字コードはＳＪＩＳ 改行コードはＣＲＬＦ */
 /* $Id: HuffmanCode.h 1168 2014-05-20 12:06:08Z umezawa $ */
 
 #pragma once

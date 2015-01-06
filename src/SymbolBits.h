@@ -1,4 +1,3 @@
-/* 文字コードはＳＪＩＳ 改行コードはＣＲＬＦ */
 /* $Id: SymbolBits.h 1163 2014-05-10 13:42:32Z umezawa $ */
 
 #pragma once

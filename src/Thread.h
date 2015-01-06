@@ -1,4 +1,3 @@
-/* •¶šƒR[ƒh‚Í‚r‚i‚h‚r ‰üsƒR[ƒh‚Í‚b‚q‚k‚e */
 /* $Id: Thread.h 1120 2013-12-21 07:11:56Z umezawa $ */
 
 #pragma once

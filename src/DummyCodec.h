@@ -1,4 +1,3 @@
-/* 文字コードはＳＪＩＳ 改行コードはＣＲＬＦ */
 /* $Id: DummyCodec.h 1059 2013-06-03 14:45:36Z umezawa $ */
 
 #pragma once

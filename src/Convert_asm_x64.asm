@@ -1,4 +1,3 @@
-; •¶šƒR[ƒh‚Í‚r‚i‚h‚r ‰üsƒR[ƒh‚Í‚b‚q‚k‚e
 ; $Id: Convert_asm_x64.asm 1212 2015-01-03 07:54:46Z umezawa $
 
 

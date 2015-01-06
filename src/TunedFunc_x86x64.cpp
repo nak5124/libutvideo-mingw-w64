@@ -1,4 +1,3 @@
-/* •¶šƒR[ƒh‚Í‚r‚i‚h‚r ‰üsƒR[ƒh‚Í‚b‚q‚k‚e */
 /* $Id: TunedFunc_x86x64.cpp 1200 2014-12-21 00:57:37Z umezawa $ */
 
 #include "stdafx.h"

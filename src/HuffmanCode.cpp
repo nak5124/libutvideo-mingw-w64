@@ -1,4 +1,3 @@
-/* •¶šƒR[ƒh‚Í‚r‚i‚h‚r ‰üsƒR[ƒh‚Í‚b‚q‚k‚e */
 /* $Id: HuffmanCode.cpp 1171 2014-05-24 06:23:13Z umezawa $ */
 
 #include "stdafx.h"

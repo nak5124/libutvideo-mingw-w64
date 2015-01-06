@@ -1,4 +1,3 @@
-; •¶šƒR[ƒh‚Í‚r‚i‚h‚r ‰üsƒR[ƒh‚Í‚b‚q‚k‚e
 ; $Id: HuffmanCode_asm_x64.asm 1106 2013-10-12 11:39:41Z umezawa $
 
 

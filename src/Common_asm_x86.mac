@@ -1,4 +1,3 @@
-; 文字コードはＳＪＩＳ 改行コードはＣＲＬＦ
 ; $Id: Common_asm_x86.mac 804 2011-11-26 12:32:05Z umezawa $
 
 %macro SIMPLE_PROLOGUE 1-*

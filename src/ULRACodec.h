@@ -1,4 +1,3 @@
-/* 文字コードはＳＪＩＳ 改行コードはＣＲＬＦ */
 /* $Id: ULRACodec.h 1108 2013-10-13 13:00:27Z umezawa $ */
 
 #pragma once

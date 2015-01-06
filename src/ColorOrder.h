@@ -1,4 +1,3 @@
-/* 文字コードはＳＪＩＳ 改行コードはＣＲＬＦ */
 /* $Id: ColorOrder.h 1019 2013-05-21 13:53:00Z umezawa $ */
 
 #pragma once

@@ -1,4 +1,3 @@
-/* •¶šƒR[ƒh‚Í‚r‚i‚h‚r ‰üsƒR[ƒh‚Í‚b‚q‚k‚e */
 /* $Id: CodecBase.cpp 1212 2015-01-03 07:54:46Z umezawa $ */
 
 #include "stdafx.h"

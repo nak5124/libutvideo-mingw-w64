@@ -1,7 +1,5 @@
 #define UTVIDEO_COMMENT \
-/* 文字コードはＳＪＩＳ 改行コードはＣＲＬＦ */ \
-/* $Id: version.h 1215 2015-01-04 07:28:24Z umezawa $ */ \
-/* Inno Setup で include すると普通にコメントを書けないので、こうやって書く。 */
+/* $Id: version.h 1215 2015-01-04 07:28:24Z umezawa $ */
 
 #ifndef UTVIDEO_VERSION
 

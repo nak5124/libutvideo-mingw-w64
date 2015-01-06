@@ -1,4 +1,3 @@
-/* •¶šƒR[ƒh‚Í‚r‚i‚h‚r ‰üsƒR[ƒh‚Í‚b‚q‚k‚e */
 /* $Id: utv_core.cpp 974 2013-03-20 14:07:51Z umezawa $ */
 
 #include "stdafx.h"

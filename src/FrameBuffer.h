@@ -1,4 +1,3 @@
-/* 文字コードはＳＪＩＳ 改行コードはＣＲＬＦ */
 /* $Id: FrameBuffer.h 728 2011-08-30 13:09:11Z umezawa $ */
 
 #pragma once

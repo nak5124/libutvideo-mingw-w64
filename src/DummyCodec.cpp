@@ -1,4 +1,3 @@
-/* •¶šƒR[ƒh‚Í‚r‚i‚h‚r ‰üsƒR[ƒh‚Í‚b‚q‚k‚e */
 /* $Id: DummyCodec.cpp 724 2011-08-25 16:16:00Z umezawa $ */
 
 #include "stdafx.h"

@@ -1,4 +1,3 @@
-/* •¶šƒR[ƒh‚Í‚r‚i‚h‚r ‰üsƒR[ƒh‚Í‚b‚q‚k‚e */
 /* $Id: FrameBuffer.cpp 782 2011-10-19 12:12:25Z umezawa $ */
 
 #include "stdafx.h"

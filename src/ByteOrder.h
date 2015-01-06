@@ -1,4 +1,3 @@
-/* 文字コードはＳＪＩＳ 改行コードはＣＲＬＦ */
 /* $Id: ByteOrder.h 1117 2013-12-09 09:34:54Z umezawa $ */
 
 #pragma once

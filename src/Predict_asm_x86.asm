@@ -1,4 +1,3 @@
-; •¶šƒR[ƒh‚Í‚r‚i‚h‚r ‰üsƒR[ƒh‚Í‚b‚q‚k‚e
 ; $Id: Predict_asm_x86.asm 1119 2013-12-21 06:30:46Z umezawa $
 
 

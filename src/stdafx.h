@@ -1,4 +1,3 @@
-/* •¶šƒR[ƒh‚Í‚r‚i‚h‚r ‰üsƒR[ƒh‚Í‚b‚q‚k‚e */
 /* $Id: stdafx.h 912 2012-09-17 09:50:39Z umezawa $ */
 
 #pragma once

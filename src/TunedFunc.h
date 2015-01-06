@@ -1,4 +1,3 @@
-/* 文字コードはＳＪＩＳ 改行コードはＣＲＬＦ */
 /* $Id: TunedFunc.h 1212 2015-01-03 07:54:46Z umezawa $ */
 
 #pragma once

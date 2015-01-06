@@ -1,4 +1,3 @@
-/* 文字コードはＳＪＩＳ 改行コードはＣＲＬＦ */
 /* $Id: ULYUV422Codec.h 1064 2013-06-04 12:12:07Z umezawa $ */
 
 #pragma once

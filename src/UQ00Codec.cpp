@@ -1,4 +1,3 @@
-/* 文字コードはＳＪＩＳ 改行コードはＣＲＬＦ */
 /* $Id: UQ00Codec.cpp 1187 2014-06-08 11:53:29Z umezawa $ */
 
 #include "stdafx.h"

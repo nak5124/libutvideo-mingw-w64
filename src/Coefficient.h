@@ -1,4 +1,3 @@
-/* •¶šƒR[ƒh‚Í‚r‚i‚h‚r ‰üsƒR[ƒh‚Í‚b‚q‚k‚e */
 /* $Id: Coefficient.h 1092 2013-09-21 09:43:01Z umezawa $ */
 
 #pragma once

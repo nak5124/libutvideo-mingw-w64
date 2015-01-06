@@ -1,4 +1,3 @@
-/* •¶šƒR[ƒh‚Í‚r‚i‚h‚r ‰üsƒR[ƒh‚Í‚b‚q‚k‚e */
 /* $Id: Predict.cpp 1191 2014-06-11 14:44:13Z umezawa $ */
 
 #include "stdafx.h"

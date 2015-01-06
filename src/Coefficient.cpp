@@ -1,4 +1,3 @@
-/* •¶šƒR[ƒh‚Í‚r‚i‚h‚r ‰üsƒR[ƒh‚Í‚b‚q‚k‚e */
 /* $Id: Coefficient.cpp 1045 2013-06-01 16:40:04Z umezawa $ */
 
 /* This file is NOT a part of "utv_core" module. */
