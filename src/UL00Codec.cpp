@@ -348,7 +348,7 @@ int CUL00Codec::EncodeGetExtraData(void *pExtraData, size_t cb, utvf_t infmt, un
 
 size_t CUL00Codec::EncodeGetOutputSize(utvf_t infmt, unsigned int width, unsigned int height, size_t cbGrossWidth)
 {
-	return ROUNDUP(width, 4) * ROUNDUP(height, 2) * GetRealBitCount() / 8 + 4096; // +4096 �͂ǂ�Ԃ芨��B
+	return ROUNDUP(width, 4) * ROUNDUP(height, 2) * GetRealBitCount() / 8 + 4096; // +4096 はどんぶり勘定。
 }
 
 int CUL00Codec::EncodeQuery(utvf_t infmt, unsigned int width, unsigned int height, size_t cbGrossWidth)

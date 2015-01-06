@@ -52,8 +52,8 @@ sse2_PredictLeftAndCount:
 	cmp			rsi, rax
 	jb			.label1
 
-	; �ŏ��̃��C����16�o�C�g�ɖ����Ȃ���������������B
-	; �኱�̂͂ݏo���ǂݍ��݂���������B
+	; 最初のラインの16バイトに満たない部分を処理する。
+	; 若干のはみ出し読み込みが発生する。
 	mov			rax, qword [rsp + %$pSrcEnd]
 	cmp			rsi, rax
 	jae			.label4
@@ -81,8 +81,8 @@ sse2_PredictLeftAndCount:
 %pop
 
 
-; prediction �͑O��Ƀ}�[�W�������� CFrameBuffer ��ōs���̂ŁA�v�Z���ʂ��ς��Ȃ�����A�͂ݏo���ǂݍ��݂͋��e�����B
-; ����A�}���`�X���b�h���삵�����ɖ�肪��������̂ŁA�͂ݏo���������݂͋��e����Ȃ��B
+; prediction は前後にマージンを持つ CFrameBuffer 上で行うので、計算結果が変わらない限り、はみ出し読み込みは許容される。
+; 一方、マルチスレッド動作した時に問題が発生するので、はみ出し書き込みは許容されない。
 
 %push
 
@@ -101,7 +101,7 @@ sse2_PredictWrongMedianAndCount:
 	add			rax, rdx
 	mov			rbx, qword [rsp + %$pCountTable]
 
-	; �ŏ��̃��C����16�o�C�g����������B
+	; 最初のラインを16バイトずつ処理する。
 	align		64
 .label1:
 	movdqu		xmm0, oword [rsi]
@@ -129,8 +129,8 @@ sse2_PredictWrongMedianAndCount:
 	cmp			rsi, rax
 	jb			.label1
 
-	; �ŏ��̃��C����16�o�C�g�ɖ����Ȃ���������������B
-	; �኱�̂͂ݏo���ǂݍ��݂���������B
+	; 最初のラインの16バイトに満たない部分を処理する。
+	; 若干のはみ出し読み込みが発生する。
 	mov			rax, qword [rsp + %$pSrcBegin]
 	add			rax, qword [rsp + %$dwStride]
 	cmp			rsi, rax
@@ -153,7 +153,7 @@ sse2_PredictWrongMedianAndCount:
 	cmp			rsi, rax
 	jb			.label3
 
-	; �c��̃��C����16�o�C�g����������B
+	; 残りのラインを16バイトずつ処理する。
 .label4:
 	mov			rdx, qword [rsp + %$dwStride]
 	neg			rdx
@@ -209,8 +209,8 @@ sse2_PredictWrongMedianAndCount:
 	cmp			rsi, rax
 	jb			.label2
 
-	; �c��̃��C����16�o�C�g�ɖ����Ȃ���������������B
-	; �኱�̂͂ݏo���ǂݍ��݂���������B
+	; 残りのラインの16バイトに満たない部分を処理する。
+	; 若干のはみ出し読み込みが発生する。
 	mov			rax, qword [rsp + %$pSrcEnd]
 	cmp			rsi, rax
 	jae			.label6
@@ -254,7 +254,7 @@ sse2_PredictWrongMedianAndCount:
 %pop
 
 
-; p{min,max}ub �� SSE1 �Œǉ����ꂽ MMX ���߁i������ MMX2 ���߁j�ł���B
+; p{min,max}ub は SSE1 で追加された MMX 命令（いわゆる MMX2 命令）である。
 
 %push
 
@@ -296,7 +296,7 @@ sse1mmx_RestoreWrongMedian:
 	pmaxub		mm2, mm4
 	pminub		mm2, mm6					; mm2 = median
 
-	paddb		mm2, qword [rsi]		; �A���C�����g������Ă��Ă� xmm ���W�X�^�̏ꍇ�ƈ���Ĉ�ʕی��O�ɂ͂Ȃ�Ȃ�
+	paddb		mm2, qword [rsi]		; アライメントがずれていても xmm レジスタの場合と違って一般保護例外にはならない
 	movd		eax, mm2
 	mov			byte [rdi], al
 

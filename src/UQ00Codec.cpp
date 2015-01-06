@@ -145,7 +145,7 @@ int CUQ00Codec::InternalSetState(const void *pState, size_t cb)
 		return -1;
 	if (ec.ecReserved != 0)
 		return -1;
-	/* ecDivideCountMinusOne ‚Í‘S‚Ä‚Ì’l‚ª—LŒø‚È‚Ì‚Åƒ`ƒFƒbƒN‚µ‚È‚¢ */
+	/* ecDivideCountMinusOne ã¯å…¨ã¦ã®å€¤ãŒæœ‰åŠ¹ãªã®ã§ãƒã‚§ãƒƒã‚¯ã—ãªã„ */
 	if ((ec.ecFlags & EC_FLAGS_RESERVED) != 0)
 		return -1;
 
@@ -328,7 +328,7 @@ int CUQ00Codec::EncodeGetExtraData(void *pExtraData, size_t cb, utvf_t infmt, un
 
 size_t CUQ00Codec::EncodeGetOutputSize(utvf_t infmt, unsigned int width, unsigned int height, size_t cbGrossWidth)
 {
-	return ROUNDUP(width, 4) * ROUNDUP(height, 2) * GetRealBitCount() / 8 + 4096; // +4096 ‚Í‚Ç‚ñ‚Ô‚èŠ¨’èB
+	return ROUNDUP(width, 4) * ROUNDUP(height, 2) * GetRealBitCount() / 8 + 4096; // +4096 ã¯ã©ã‚“ã¶ã‚Šå‹˜å®šã€‚
 }
 
 int CUQ00Codec::EncodeQuery(utvf_t infmt, unsigned int width, unsigned int height, size_t cbGrossWidth)

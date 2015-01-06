@@ -133,7 +133,7 @@ void CThreadManager::SubmitJob(CThreadJob *pJob, uint32_t dwAffinityHint)
 
 void CThreadManager::WaitForJobCompletion(void)
 {
-	// �ҋ@���ɃW���u���ǉ�����邱�Ƃ͍l�����Ă��Ȃ��B
+	// 待機中にジョブが追加されることは考慮していない。
 	WaitForMultipleObjects(m_nNumJobs, m_hCompletionEvent, TRUE, INFINITE);
 	for (int i = 0; i < m_nNumJobs; i++)
 		CloseHandle(m_hCompletionEvent[i]);

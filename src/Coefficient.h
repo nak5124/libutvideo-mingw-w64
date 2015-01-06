@@ -58,11 +58,11 @@ class CBT601Coefficient
 {
 public:
 	/*
-	 * �ȉ��̂悤�Ȃ̐錾�� C++ �d�l�㋖���ꂸ�A
-	 * �u�X�^�e�B�b�N const �����f�[�^ �����o�ȊO���N���X���ŏ��������邱�Ƃ͂ł��܂���v
-	 * �Ƃ����G���[�ɂȂ�B���P�̍�Ƃ��Ē萔�֐��Ƃ��Ē�`����B
+	 * 以下のようなの宣言は C++ 仕様上許されず、
+	 * 「スタティック const 整数データ メンバ以外をクラス内で初期化することはできません」
+	 * というエラーになる。次善の策として定数関数として定義する。
 	 *
-	 * gcc ���ƃG���[�ɂȂ�Ȃ����A����͓Ǝ��g���ł���B
+	 * gcc だとエラーにならないが、これは独自拡張である。
 	 */
 	//static const float R2Y = COEFF_R2Y8(COEFF_BT601_KR, COEFF_BT601_KB);
 

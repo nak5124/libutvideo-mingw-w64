@@ -156,7 +156,7 @@ int CCodecBase::CalcRawFrameMetric(utvf_t rawfmt, unsigned int width, unsigned i
 	switch (rawfmt)
 	{
 	case UTVF_YV12:
-		m_cbRawSize = (width * height * 3) / 2; // XXX •‚â‚‚³‚ªŠï”‚Ìê‡‚Íl—¶‚µ‚Ä‚¢‚È‚¢
+		m_cbRawSize = (width * height * 3) / 2; // XXX å¹…ã‚„é«˜ã•ãŒå¥‡æ•°ã®å ´åˆã¯è€ƒæ…®ã—ã¦ã„ãªã„
 		break;
 	default:
 		switch (rawfmt)
@@ -205,8 +205,8 @@ int CCodecBase::CalcRawFrameMetric(utvf_t rawfmt, unsigned int width, unsigned i
 			break;
 		case CBGROSSWIDTH_WINDOWS:
 			/*
-			 * BI_RGB ‚Ìê‡‚Í4ƒoƒCƒgƒAƒ‰ƒCƒƒ“ƒg‚Å‚ ‚é‚ªA
-			 * ‚»‚Ì‘¼‚Ìê‡‚É4ƒoƒCƒgƒAƒ‰ƒCƒƒ“ƒg‚É‚·‚×‚«‚©‚Ç‚¤‚©‚ÍÀ‚Í•s–¾Šm‚Å‚ ‚éB
+			 * BI_RGB ã®å ´åˆã¯4ãƒã‚¤ãƒˆã‚¢ãƒ©ã‚¤ãƒ¡ãƒ³ãƒˆã§ã‚ã‚‹ãŒã€
+			 * ãã®ä»–ã®å ´åˆã«4ãƒã‚¤ãƒˆã‚¢ãƒ©ã‚¤ãƒ¡ãƒ³ãƒˆã«ã™ã¹ãã‹ã©ã†ã‹ã¯å®Ÿã¯ä¸æ˜ç¢ºã§ã‚ã‚‹ã€‚
 			 */
 			m_cbRawGrossWidth = ROUNDUP(m_cbRawNetWidth, 4);
 			break;

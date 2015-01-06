@@ -16,31 +16,31 @@ void cpp_PredictWrongMedianAndCount(uint8_t *pDst, const uint8_t *pSrcBegin, con
 	const uint8_t *p = pSrcBegin;
 	uint8_t *q = pDst;
 
-	// Å‰‚Ìƒ‰ƒCƒ“‚ÌÅ‰‚ÌƒsƒNƒZƒ‹‚Í 0x80 ‚ğ—\‘ª‚µ‚Ä‚¨‚­B
+	// æœ€åˆã®ãƒ©ã‚¤ãƒ³ã®æœ€åˆã®ãƒ”ã‚¯ã‚»ãƒ«ã¯ 0x80 ã‚’äºˆæ¸¬ã—ã¦ãŠãã€‚
 	*q = *p - 0x80;
 	pCountTable[*q]++;
 	p++;
 	q++;
 
-	// Å‰‚Ìƒ‰ƒCƒ“‚Ìc‚è‚ÌƒsƒNƒZƒ‹‚Í predict left ‚Æ“¯‚¶B
+	// æœ€åˆã®ãƒ©ã‚¤ãƒ³ã®æ®‹ã‚Šã®ãƒ”ã‚¯ã‚»ãƒ«ã¯ predict left ã¨åŒã˜ã€‚
 	for (; p < pSrcBegin + dwStride; p++, q++)
 	{
 		*q = *p - *(p - 1);
 		pCountTable[*q]++;
 	}
 
-	// 1 ƒ‰ƒCƒ“‚µ‚©‚È‚¢ê‡‚Í‚±‚±‚ÅI—¹B
+	// 1 ãƒ©ã‚¤ãƒ³ã—ã‹ãªã„å ´åˆã¯ã“ã“ã§çµ‚äº†ã€‚
 	if (p == pSrcEnd)
 		return;
 
-	// Ÿ‚Ìƒ‰ƒCƒ“‚ÌÅ‰‚ÌƒsƒNƒZƒ‹‚Í predict aboveB
-	// ‚±‚¤‚µ‚Ä‚¨‚­‚ÆƒAƒZƒ“ƒuƒ‰‰»‚µ‚½‚Éˆ—‚ªáŠ±ŠÈ’P‚É‚È‚éB
+	// æ¬¡ã®ãƒ©ã‚¤ãƒ³ã®æœ€åˆã®ãƒ”ã‚¯ã‚»ãƒ«ã¯ predict aboveã€‚
+	// ã“ã†ã—ã¦ãŠãã¨ã‚¢ã‚»ãƒ³ãƒ–ãƒ©åŒ–ã—ãŸæ™‚ã«å‡¦ç†ãŒè‹¥å¹²ç°¡å˜ã«ãªã‚‹ã€‚
 	*q = *p - *(p - dwStride);
 	pCountTable[*q]++;
 	p++;
 	q++;
 
-	// c‚è‚ÌƒsƒNƒZƒ‹‚ª predict median ‚Ì–{”Ô
+	// æ®‹ã‚Šã®ãƒ”ã‚¯ã‚»ãƒ«ãŒ predict median ã®æœ¬ç•ª
 	for (; p < pSrcEnd; p++, q++)
 	{
 		*q = *p - median<uint8_t>(*(p - dwStride), *(p - 1), *(p - dwStride) + *(p - 1) - *(p - 1 - dwStride));
@@ -53,13 +53,13 @@ void cpp_PredictLeftAndCount(uint8_t *pDst, const uint8_t *pSrcBegin, const uint
 	const uint8_t *p = pSrcBegin;
 	uint8_t *q = pDst;
 
-	// Å‰‚Ìƒ‰ƒCƒ“‚ÌÅ‰‚ÌƒsƒNƒZƒ‹‚Í 0x80 ‚ğ—\‘ª‚µ‚Ä‚¨‚­B
+	// æœ€åˆã®ãƒ©ã‚¤ãƒ³ã®æœ€åˆã®ãƒ”ã‚¯ã‚»ãƒ«ã¯ 0x80 ã‚’äºˆæ¸¬ã—ã¦ãŠãã€‚
 	*q = *p - 0x80;
 	pCountTable[*q]++;
 	p++;
 	q++;
 
-	// c‚è‚ÌƒsƒNƒZƒ‹‚ª predict left ‚Ì–{”Ô
+	// æ®‹ã‚Šã®ãƒ”ã‚¯ã‚»ãƒ«ãŒ predict left ã®æœ¬ç•ª
 	for (; p < pSrcEnd; p++, q++)
 	{
 		*q = *p - *(p-1);
@@ -138,7 +138,7 @@ void cpp_PredictCylindricalLeftAndCount(typename CSymbolBits<B>::symbol_t *pDst,
 	p++;
 	q++;
 
-	// c‚è‚ÌƒsƒNƒZƒ‹‚ª predict left ‚Ì–{”Ô
+	// æ®‹ã‚Šã®ãƒ”ã‚¯ã‚»ãƒ«ãŒ predict left ã®æœ¬ç•ª
 	for (; p < pSrcEnd; p++, q++)
 	{
 		*q = (*p - *(p-1)) & CSymbolBits<B>::maskval;

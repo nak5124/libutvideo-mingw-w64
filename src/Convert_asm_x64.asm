@@ -59,7 +59,7 @@ global %$procname
 .label0:
 	lea			r8, [rdi+r10]
 
-	; align	64	; ‚³‚·‚ª‚É“ü‚ê‚·‚¬‚È‹C‚ª‚·‚é‚Ì‚ÅƒRƒƒ“ƒgƒAƒEƒgB
+	; align	64	; ã•ã™ãŒã«å…¥ã‚Œã™ããªæ°—ãŒã™ã‚‹ã®ã§ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆã€‚
 .label1:
 %if ! %$use_sse41
 	movd		xmm0, [rsi+rcx*2]		; xmm0 = 00 00 00 00 00 00 00 00 00 00 00 00 Y3 Y2 Y1 Y0
@@ -100,8 +100,8 @@ global %$procname
 %if %$littleendian
 	packssdw	xmm1, xmm3				; xmm1 = ---R3 ---R2 ---R1 ---R0 ---G3 ---G2 ---G1 ---G0
 	packssdw	xmm2, xmm7				; xmm2 = 00 00 00 00 00 00 00 00 ---B3 ---B2 ---B1 ---B0
-	pmaxsw		xmm1, xmm7				; ŒvZ‰ß’ö‚Åƒ}ƒCƒiƒX‚É‚È‚é‚±‚Æ‚ª‚ ‚é‚Ì‚ÅA
-	pmaxsw		xmm2, xmm7				; ‚±‚±‚Ì pmaxsw xmmN, xmm7 ‚Í•K—vB
+	pmaxsw		xmm1, xmm7				; è¨ˆç®—éç¨‹ã§ãƒã‚¤ãƒŠã‚¹ã«ãªã‚‹ã“ã¨ãŒã‚ã‚‹ã®ã§ã€
+	pmaxsw		xmm2, xmm7				; ã“ã“ã® pmaxsw xmmN, xmm7 ã¯å¿…è¦ã€‚
 	punpcklwd	xmm2, xmm1				; xmm2 = ---G3 ---B3 ---G2 ---B2 ---G1 ---B1 ---G0 ---B0
 	punpckhwd	xmm1, xmm6				; xmm1 = 00 ff ---R3 00 ff ---R2 00 ff ---R1 00 ff ---R0
 	packuswb	xmm2, xmm2				; xmm2 = XX XX XX XX XX XX XX XX G3 B3 G2 B2 G1 B1 G0 B0
@@ -111,15 +111,15 @@ global %$procname
 	packssdw	xmm3, xmm2				; xmm3 = ---B3 ---B2 ---B1 ---B0 ---R3 ---R2 ---R1 ---R0
 	movdqa		xmm2, xmm6
 	packssdw	xmm1, xmm1				; xmm1 = ---G3 ---G2 ---G1 ---G0 ---G3 ---G2 ---G1 ---G0
-	pmaxsw		xmm3, xmm7				; ŒvZ‰ß’ö‚Åƒ}ƒCƒiƒX‚É‚È‚é‚±‚Æ‚ª‚ ‚é‚Ì‚ÅA
-	pmaxsw		xmm1, xmm7				; ‚±‚±‚Ì pmaxsw xmmN, xmm7 ‚Í•K—vB
+	pmaxsw		xmm3, xmm7				; è¨ˆç®—éç¨‹ã§ãƒã‚¤ãƒŠã‚¹ã«ãªã‚‹ã“ã¨ãŒã‚ã‚‹ã®ã§ã€
+	pmaxsw		xmm1, xmm7				; ã“ã“ã® pmaxsw xmmN, xmm7 ã¯å¿…è¦ã€‚
 	punpcklwd	xmm2, xmm3				; xmm2 = ---R3 00 ff ---R2 00 ff ---R1 00 ff ---R0 00 ff
 	punpckhwd	xmm1, xmm3				; xmm1 = ---B3 ---G3 ---B2 ---G2 ---B1 ---G1 ---B0 ---G0
 	packuswb	xmm2, xmm2				; xmm2 = XX XX XX XX XX XX XX XX R3 ff R2 ff R1 ff R0 ff
 	packuswb	xmm1, xmm1				; xmm1 = XX XX XX XX XX XX XX XX B3 G3 B2 G2 B1 G1 B0 G0
 	punpcklwd	xmm2, xmm1				; xmm2 = B3 G3 R3 ff B2 G2 R2 ff B1 G1 R1 ff B0 G0 R0 ff
  %if ! %$rgb32
-	; ‚ß‚ñ‚Ç‚­‚³‚¢‚Ì‚Å
+	; ã‚ã‚“ã©ãã•ã„ã®ã§
 	movdqa		xmm1, xmm2
 	psrldq		xmm2, 1
 	pslldq		xmm1, 15
@@ -386,7 +386,7 @@ planar2bgrpshufb16	dq	0d02070c01060b00h
 
 bgrx2planarpshufb16	dq	0d0905010c080400h
 					dq	0f0b07030e0a0602h
-planar2bgrxpshufb16	dq	0d0905010c080400h	; ŒvZ‚µ‚Ä‚İ‚½‚çÀ‚Í“¯‚¶‚¾‚Æ‚¢‚¤c
+planar2bgrxpshufb16	dq	0d0905010c080400h	; è¨ˆç®—ã—ã¦ã¿ãŸã‚‰å®Ÿã¯åŒã˜ã ã¨ã„ã†â€¦
 					dq	0f0b07030e0a0602h
 
 xrgb2planarpshufb16	dq	0e0a06020f0b0703h

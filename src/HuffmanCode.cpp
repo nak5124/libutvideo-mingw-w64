@@ -11,7 +11,7 @@ struct hufftree {
 	struct hufftree *left;
 	struct hufftree *right;
 	uint32_t count;
-	uint32_t symbol;	// uint8_t ‚Å‚Í‚È‚¢ƒVƒ“ƒ{ƒ‹‚ª“ü‚é‚±‚Æ‚ª‚ ‚é
+	uint32_t symbol;	// uint8_t ã§ã¯ãªã„ã‚·ãƒ³ãƒœãƒ«ãŒå…¥ã‚‹ã“ã¨ãŒã‚ã‚‹
 };
 
 inline bool hufftree_gt(const struct hufftree *a, const struct hufftree *b)
@@ -33,7 +33,7 @@ bool generate_code_length(uint8_t *codelen, const struct hufftree *node, uint8_t
 
 static void GenerateLengthLimitedHuffmanCodeLengthTable(uint8_t *pCodeLengthTable, int nSymbolBits)
 {
-	// ‚Æ‚è‚ ‚¦‚¸‚±‚ê‚Å“¦‚°‚éB
+	// ã¨ã‚Šã‚ãˆãšã“ã‚Œã§é€ƒã’ã‚‹ã€‚
 	memset(pCodeLengthTable, nSymbolBits, 1 << nSymbolBits);
 }
 
@@ -123,8 +123,8 @@ void GenerateHuffmanEncodeTable(HUFFMAN_ENCODE_TABLE<B> *pEncodeTable, const HUF
 template void GenerateHuffmanEncodeTable<8>(HUFFMAN_ENCODE_TABLE<8> *pEncodeTable, const HUFFMAN_CODELEN_TABLE<8> *pCodeLengthTable);
 template void GenerateHuffmanEncodeTable<10>(HUFFMAN_ENCODE_TABLE<10> *pEncodeTable, const HUFFMAN_CODELEN_TABLE<10> *pCodeLengthTable);
 
-// IA-32 ‚Ì BSR –½—ß
-// –{•¨‚Ì BSR –½—ß‚Å‚Í“ü—Í‚ª 0 ‚Ìê‡‚Éo—Í‚ª•s’è‚É‚È‚éB
+// IA-32 ã® BSR å‘½ä»¤
+// æœ¬ç‰©ã® BSR å‘½ä»¤ã§ã¯å…¥åŠ›ãŒ 0 ã®å ´åˆã«å‡ºåŠ›ãŒä¸å®šã«ãªã‚‹ã€‚
 inline int bsr(uint32_t x)
 {
 	_ASSERT(x != 0);
@@ -135,7 +135,7 @@ inline int bsr(uint32_t x)
 	return rand() % 32;
 }
 
-// LZCNT ‚ ‚é‚¢‚Í CLZ ‚ÆŒÄ‚Î‚ê‚é–½—ß
+// LZCNT ã‚ã‚‹ã„ã¯ CLZ ã¨å‘¼ã°ã‚Œã‚‹å‘½ä»¤
 inline int lzcnt(uint32_t x)
 {
 	for (int i = 31; i >= 0; i--)
@@ -158,7 +158,7 @@ void GenerateHuffmanDecodeTable(HUFFMAN_DECODE_TABLE<B> *pDecodeTable, const HUF
 
 	sort(cls, cls + (1 << B), cls_less<B>);
 
-	// oŒ»‚·‚éƒVƒ“ƒ{ƒ‹‚ª‚Pí—Ş‚µ‚©‚È‚¢ê‡‚Ìˆ—
+	// å‡ºç¾ã™ã‚‹ã‚·ãƒ³ãƒœãƒ«ãŒï¼‘ç¨®é¡ã—ã‹ãªã„å ´åˆã®å‡¦ç†
 	if (cls[0].codelen == 0)
 	{
 		memset(pDecodeTable, 0, sizeof(HUFFMAN_DECODE_TABLE<B>));
@@ -177,16 +177,16 @@ void GenerateHuffmanDecodeTable(HUFFMAN_DECODE_TABLE<B> *pDecodeTable, const HUF
 		return;
 	}
 
-	// Å‚à’·‚¢•„†’·‚ğ‚ÂƒVƒ“ƒ{ƒ‹‚Ì cls ã‚Å‚ÌˆÊ’u‚ğ‹‚ß‚é
+	// æœ€ã‚‚é•·ã„ç¬¦å·é•·ã‚’æŒã¤ã‚·ãƒ³ãƒœãƒ«ã® cls ä¸Šã§ã®ä½ç½®ã‚’æ±‚ã‚ã‚‹
 	for (nLastIndex = (1 << B) - 1; nLastIndex >= 0; nLastIndex--)
 	{
 		if (cls[nLastIndex].codelen != 255)
 			break;
 	}
 
-	// ’á‘¬ƒe[ƒuƒ‹‚Ì¶¬
+	// ä½é€Ÿãƒ†ãƒ¼ãƒ–ãƒ«ã®ç”Ÿæˆ
 	{
-		uint32_t curcode = 1; // bsr ‘Îô‚Å 0 ‚Å‚Í‚È‚­ 1B•„†Œê’·‚Í 24 ˆÈ‰º‚È‚Ì‚Å 1 ‚É‚µ‚Ä‚ ‚Á‚Ä‚à–â‘è‚È‚¢B
+		uint32_t curcode = 1; // bsr å¯¾ç­–ã§ 0 ã§ã¯ãªã 1ã€‚ç¬¦å·èªé•·ã¯ 24 ä»¥ä¸‹ãªã®ã§ 1 ã«ã—ã¦ã‚ã£ã¦ã‚‚å•é¡Œãªã„ã€‚
 		int j = 0;
 		int base = 0;
 		int nextfillidx = 0;
@@ -194,7 +194,7 @@ void GenerateHuffmanDecodeTable(HUFFMAN_DECODE_TABLE<B> *pDecodeTable, const HUF
 
 		for (int i = nLastIndex; i >= 0; i--)
 		{
-			// ’Z‚¢•„†Œê‚Ìê‡‚Í‚‘¬ƒe[ƒuƒ‹‚ÅƒfƒR[ƒh‚³‚ê‚é‚Ì‚ÅA’á‘¬ƒe[ƒuƒ‹‚Ì¶¬‚Í•s—v‚Å‚ ‚éB
+			// çŸ­ã„ç¬¦å·èªã®å ´åˆã¯é«˜é€Ÿãƒ†ãƒ¼ãƒ–ãƒ«ã§ãƒ‡ã‚³ãƒ¼ãƒ‰ã•ã‚Œã‚‹ã®ã§ã€ä½é€Ÿãƒ†ãƒ¼ãƒ–ãƒ«ã®ç”Ÿæˆã¯ä¸è¦ã§ã‚ã‚‹ã€‚
 			if (cls[i].codelen <= HUFFMAN_DECODE_TABLE<B>::LOOKUP_BITS)
 				break;
 
@@ -219,7 +219,7 @@ void GenerateHuffmanDecodeTable(HUFFMAN_DECODE_TABLE<B> *pDecodeTable, const HUF
 		}
 	}
 
-	// ‚‘¬ƒe[ƒuƒ‹‚Ì¶¬iƒe[ƒuƒ‹ˆê”­QÆ—pj
+	// é«˜é€Ÿãƒ†ãƒ¼ãƒ–ãƒ«ã®ç”Ÿæˆï¼ˆãƒ†ãƒ¼ãƒ–ãƒ«ä¸€ç™ºå‚ç…§ç”¨ï¼‰
 	{
 		uint32_t curcode = 0;
 

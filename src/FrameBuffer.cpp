@@ -63,11 +63,11 @@ void CFrameBuffer::AddPlane(size_t cbBuffer, size_t cbMargin)
 	m_pAllocatedAddr[m_nPlanes] = pAllocatedAddr;
 	m_cbAllocated[m_nPlanes] = cbAllocated;
 	/*
-	 * ƒvƒŒ[ƒ“‚²‚Æ‚ÉŠJŽnƒAƒhƒŒƒX‚ð­‚µ‚¸‚Â‚¸‚ç‚µAƒLƒƒƒbƒVƒ…‚ÌƒXƒ‰ƒbƒVƒ“ƒO‚ð‰ñ”ð‚·‚éB
-	 * 256 ‚Íƒ}ƒWƒbƒNƒiƒ“ƒo[‚Å‚ ‚é‚ªA
-	 *   - ƒLƒƒƒbƒVƒ…ƒ‰ƒCƒ“ƒTƒCƒYiÅ‹ß‚Ì‘½‚­‚ÌƒvƒƒZƒbƒT‚Å‚Í 64 ƒoƒCƒgj‚Ì®””{
-	 *   - ƒLƒƒƒbƒVƒ…ƒTƒCƒY‚æ‚è\•ª¬‚³‚¢
-	 * ‚ð–ž‚½‚·•K—v‚ª‚ ‚éB
+	 * ãƒ—ãƒ¬ãƒ¼ãƒ³ã”ã¨ã«é–‹å§‹ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å°‘ã—ãšã¤ãšã‚‰ã—ã€ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã®ã‚¹ãƒ©ãƒƒã‚·ãƒ³ã‚°ã‚’å›žé¿ã™ã‚‹ã€‚
+	 * 256 ã¯ãƒžã‚¸ãƒƒã‚¯ãƒŠãƒ³ãƒãƒ¼ã§ã‚ã‚‹ãŒã€
+	 *   - ã‚­ãƒ£ãƒƒã‚·ãƒ¥ãƒ©ã‚¤ãƒ³ã‚µã‚¤ã‚ºï¼ˆæœ€è¿‘ã®å¤šãã®ãƒ—ãƒ­ã‚»ãƒƒã‚µã§ã¯ 64 ãƒã‚¤ãƒˆï¼‰ã®æ•´æ•°å€
+	 *   - ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã‚µã‚¤ã‚ºã‚ˆã‚Šååˆ†å°ã•ã„
+	 * ã‚’æº€ãŸã™å¿…è¦ãŒã‚ã‚‹ã€‚
 	 */
 	m_pBufferAddr[m_nPlanes] = pAllocatedAddr + cbMargin + m_nPlanes * 256;
 
