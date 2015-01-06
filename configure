@@ -1,0 +1,288 @@
+#!/bin/sh
+
+#----------------------------------------------------------------------------
+#  configure script for libutvideo
+#
+#  This script is considering only MinGW-w64/GCC.
+#----------------------------------------------------------------------------
+
+if test x"$1" = x"-h" -o x"$1" = x"--help" ; then
+cat << EOF
+Usage: ./configure [options]
+
+options:
+  -h, --help                 print this message
+
+  --prefix=PREFIX            install architecture-independent files into PREFIX
+                             [/usr/local]
+  --exec-prefix=EPREFIX      install architecture-dependent files into EPREFIX
+                             [PREFIX]
+  --bindir=DIR               install binaries in DIR [EPREFIX/bin]
+  --libdir=DIR               install libs in DIR [EPREFIX/lib]
+  --includedir=DIR           install headers in DIR [PREFIX/include]
+
+  --enable-strip             add -s
+  --cross-prefix=PREFIX      use PREFIX for compilation tools [none]
+  --disable-static           doesn't compile static library
+  --enable-shared            also compile shared library besides static library
+
+  --extra-cppflags=XCPPFLAGS add XCPPFLAGS to CPPFLAGS
+  --extra-cxxflags=XCFLAGS   add XCXXFLAGS to CXXFLAGS
+  --extra-ldflags=XLDFLAGS   add XLDFLAGS to LDFLAGS
+EOF
+exit 1
+fi
+
+#-----------------------------------------------------------------------------
+
+error_exit()
+{
+    echo error: $1
+    exit 1
+}
+
+#Currently, this is used only for the flag check of compiler.
+cc_check()
+{
+    echo 'int main(void){return 0;}' > conftest.c
+    $CXX conftest.c $1 $2 -o conftest 2> /dev/null
+    ret=$?
+    rm -f conftest*
+    return $ret
+}
+
+is_64bit()
+{
+    echo 'int main(void){int a[2*(sizeof(void *)>4)-1]; return 0;}' > conftest.c
+    $CXX conftest.c -o conftest 2> /dev/null
+    ret=$?
+    rm -f conftest*
+    return $ret
+}
+
+#-----------------------------------------------------------------------------
+
+rm -f config.* .depend conftest* libutvideo.pc
+
+
+echo
+echo generating config.mak ...
+echo
+
+
+SRCROOTDIR=$(dirname "$0")
+SRCROOTDIR=$(cd "$SRCROOTDIR"; pwd)
+test "$SRCROOTDIR" = "$(pwd)" && SRCROOTDIR=.
+test -n "$(echo $SRCROOTDIR | grep ' ')" && \
+    error_exit "out-of-tree builds are impossible with whitespace in source path"
+SRCDIR=${SRCROOTDIR}/src
+
+prefix=""
+exec_prefix=""
+bindir=""
+libdir=""
+includedir=""
+DESTDIR=""
+
+CROSS=""
+
+CXX="g++"
+AR="ar"
+LD="gcc"
+RANLIB="ranlib"
+STRIP=""
+ASM="nasm"
+
+EXT=".exe"
+
+STATIC_NAME="libutvideo"
+STATIC_EXT=".a"
+STATICLIB="enabled"
+
+SHARED_NAME="libutvideo"
+SHARED_EXT=".dll"
+SHAREDLIB=""
+IMPLIB=""
+
+CPPFLAGS="$CPPFLAGS"
+CXXFLAGS="$CXXFLAGS -Os -Wall -Wextra -Wno-multichar -Wno-unused-parameter -Wno-sign-compare -I$SRCDIR"
+LDFLAGS="$LDFLAGS -L."
+ASMFLAGS=""
+LIBSTDCPP="-lstdc++"
+LIBS="-lole32 -lstrmiids"
+
+for opt; do
+    optarg="${opt#*=}"
+    case "$opt" in
+        --prefix=*)
+            prefix="$optarg"
+            ;;
+        --exec-prefix=*)
+            exec_prefix="$optarg"
+            ;;
+        --bindir=*)
+            bindir="$optarg"
+            ;;
+        --libdir=*)
+            libdir="$optarg"
+            ;;
+        --includedir=*)
+            includedir="$optarg"
+            ;;
+        --enable-strip)
+            STRIP="enabled"
+            ;;
+        --cross-prefix=*)
+            CROSS="$optarg"
+            ;;
+        --disable-static)
+            STATICLIB=""
+            SHAREDLIB="enabled"
+            ;;
+        --enable-shared)
+            SHAREDLIB="enabled"
+            ;;
+        --extra-cppflags=*)
+            XCPPFLAGS="$optarg"
+            ;;
+        --extra-cxxflags=*)
+            XCXXFLAGS="$optarg"
+            ;;
+        --extra-ldflags=*)
+            XLDFLAGS="$optarg"
+            ;;
+        *)
+            error_exit "unknown option $opt"
+            ;;
+    esac
+done
+
+test -n "$prefix" || prefix="/usr/local"
+test -n "$exec_prefix" || exec_prefix='${prefix}'
+test -n "$bindir" || bindir='${exec_prefix}/bin'
+test -n "$libdir" || libdir='${exec_prefix}/lib'
+test -n "$includedir" || includedir='${prefix}/include'
+
+
+CXX="${CROSS}${CXX}"
+AR="${CROSS}${AR}"
+LD="${CROSS}${LD}"
+RANLIB="${CROSS}${RANLIB}"
+for f in "$CXX" "$AR" "$LD" "$RANLIB" "$ASM"; do
+    test -n "$(which $f 2> /dev/null)" || error_exit "$f is not executable"
+done
+
+
+MAJVER=$(grep -e '#define UTVIDEO_VERSION_MAJOR' $SRCDIR/version.h | sed -e 's/#define UTVIDEO_VERSION_MAJOR //;s/ //g')
+MINVER=$(grep -e '#define UTVIDEO_VERSION_MINOR' $SRCDIR/version.h | sed -e 's/#define UTVIDEO_VERSION_MINOR //;s/ //g')
+MICVER=$(grep -e '#define UTVIDEO_VERSION_BUGFIX' $SRCDIR/version.h | sed -e 's/#define UTVIDEO_VERSION_BUGFIX //;s/ //g')
+
+if test -n "$TARGET_OS"; then
+    TARGET_OS=$(echo $TARGET_OS | tr '[A-Z]' '[a-z]')
+else
+    TARGET_OS=$($CXX -dumpmachine | tr '[A-Z]' '[a-z]')
+fi
+case "$TARGET_OS" in
+    *mingw*)
+        TARGET_ARCH="x86"
+        ASMFLAGS="-f win32"
+        if is_64bit ; then
+            TARGET_ARCH="x64"
+            ASMFLAGS="-f win64"
+        fi
+        ;;
+    *)
+        error_exit "This script is only for MinGW-w64/GCC."
+        ;;
+esac
+
+SHARED_NAME="libutvideo-$MAJVER"
+STATICLIBNAME="${STATIC_NAME}${STATIC_EXT}"
+SHAREDLIBNAME="${SHARED_NAME}${SHARED_EXT}"
+test -n "$STATICLIB" && STATICLIB="$STATICLIBNAME"
+test -n "$SHAREDLIB" && SHAREDLIB="$SHAREDLIBNAME" \
+                     && IMPLIB="libutvideo.dll.a" \
+                     && SO_LDFLAGS="-shared -Wl,--out-implib,$IMPLIB -Wl,--enable-auto-import"
+test -z "$STATICLIB" -a -z "$SHAREDLIB" && \
+    error_exit "--disable-static requires --enable-shared were specified"
+test -z "$SHAREDLIB" && SO_LDFLAGS=""
+
+
+CPPFLAGS="$CPPFLAGS $XCPPFLAGS"
+CXXFLAGS="$CXXFLAGS $XCXXFLAGS"
+LDFLAGS="$LDFLAGS $XLDFLAGS"
+LIBS="$LIBS $LIBSTDCPP"
+
+
+echo $CXXFLAGS
+echo $LDFLAGS
+if ! cc_check "$CXXFLAGS" "$LDFLAGS"; then
+    error_exit "invalid CXXFLAGS/LDFLAGS"
+fi
+
+if [ "$STRIP" = "enabled" ]; then
+    LDFLAGS="$LDFLAGS -s"
+fi
+
+#=============================================================================
+
+cat >> libutvideo.pc << EOF
+prefix=$prefix
+exec_prefix=$exec_prefix
+libdir=$libdir
+includedir=$includedir
+
+Name: libutvideo
+Description: Ut Video Codec Suite
+Version: $MAJVER.$MINVER.$MICVER
+Requires:
+URL: http://umezawa.dyndns.info/wordpress/
+Libs: -L${libdir} -lutvideo $(test -z "$SHAREDLIB" && echo $LIBS)
+Libs.private: $(test -n "$SHAREDLIB" && echo $LIBS)
+Cflags: -I${includedir}
+EOF
+
+
+cat >> config.mak << EOF
+SRCDIR = $SRCDIR
+DESTDIR = $DESTDIR
+prefix = $prefix
+exec_prefix = $exec_prefix
+bindir = $bindir
+libdir = $libdir
+includedir = $includedir
+CXX = $CXX
+AR = $AR
+LD = $LD
+RANLIB = $RANLIB
+ASM = $ASM
+STATICLIBNAME = $STATICLIBNAME
+STATICLIB = $STATICLIB
+SHAREDLIBNAME = $SHAREDLIBNAME
+SHAREDLIB = $SHAREDLIB
+IMPLIB = $IMPLIB
+CPPFLAGS = $CPPFLAGS
+CXXFLAGS = $CXXFLAGS
+LDFLAGS = $LDFLAGS
+SO_LDFLAGS = $SO_LDFLAGS
+TARGET_ARCH = $TARGET_ARCH
+ASMFLAGS = $ASMFLAGS
+LIBS = $LIBS
+EOF
+
+cat config.mak
+
+test "$SRCROOTDIR" = "." || ln -sf ${SRCROOTDIR}/Makefile .
+mkdir -p src
+
+
+cat << EOF
+
+configure finished
+
+  type 'make'             : compile library
+  type 'make install'     : install all into system
+
+EOF
+
+exit 0
