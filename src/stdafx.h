@@ -47,8 +47,10 @@ inline BOOL EnableDlgItem(HWND hwndParent, UINT nID, BOOL bEnable)
 #include <unistd.h>
 #endif
 
-#ifndef _MSC_VER // XXX
+#if !defined(_MSC_VER) && !defined(__MINGW32__)
 #define _countof(x) (sizeof(x) / sizeof((x)[0]))
+#endif
+#ifndef _MSC_VER // XXX
 #define _ASSERT(x) do {} while(/*CONSTCOND*/0)
 #define _RPT(...) do {} while(/*CONSTCOND*/0)
 #define _RPT0 _RPT
