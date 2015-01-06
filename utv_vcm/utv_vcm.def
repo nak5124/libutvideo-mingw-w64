@@ -1,0 +1,4 @@
+LIBRARY	"utv_vcm"
+
+EXPORTS
+	DriverProc

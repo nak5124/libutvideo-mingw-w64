@@ -1,0 +1,697 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<!-- $Id: readme.en.html 1216 2015-01-04 07:36:47Z umezawa $ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+td, th {
+	padding: 0.5ex 0.75ex;
+}
+--></style>
+<title>Ut Video Codec Suite 15.0.0 readme (English)</title>
+</head>
+<body>
+<h1>Ut Video Codec Suite 15.0.0 readme (English)</h1>
+<hr>
+<h2 id="copyright_notice">Copyright Notice</h2>
+<p>Ut Video Codec Suite<br>Copyright &copy; 2008-2015  UMEZAWA Takeshi</p>
+<p>This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either <a href="gplv2.txt">version 2 of the License</a>, or
+(at your option) any later version.</p>
+<p>This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.</p>
+<p>You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA</p>
+<h2 id="overview">Overview</h2>
+<p>Ut Video Codec Suite is a multi-platform and multi-interface lossless video codec.</p>
+<h2 id="environment">Environment</h2>
+<h3>Minimum requirement (Windows x86)</h3>
+<dl>
+<dt>OS</dt><dd>Windows Vista or later</dd>
+<dt>CPU</dt><dd>i686-compatible CPU with SSE2 support<br>(e.g. Pentium 4 or later)</dd>
+</dl>
+<h3>Minimum requirement (Windows x64)</h3>
+<dl>
+<dt>OS</dt><dd>Windows Vista (x64) or later</dd>
+<dt>CPU</dt><dd>CPU with AMD64 or Intel 64 (formerly EM64T) support</dd>
+</dl>
+<h3>Minimum requirement (Mac OS X)</h3>
+<dl>
+<dt>OS</dt><dd>Mac OS X 10.6 Snow Leopard or later</dd>
+<dt>CPU</dt><dd>i686-compatible CPU with SSE2 support<br>(All Intel Mac meet this requirements)</dd>
+</dl>
+<h3>Recommended</h3>
+<dl>
+<dt>CPU</dt><dd>1st Generation Intel Core i series (codename &quot;Nehalem&quot;) or later</dd>
+</dl>
+<h2 id="installation">Installation Notice</h2>
+<h3>Windows</h3>
+<p>If version 10.2.0 or older is installed, you have to uninstall that version before you install this version.</p>
+<p>If VCM codec is not registered properly, merge utvideo.reg in install destination with registry as a last resort. This file assumes Windows directory is C:\Windows.</p>
+<h2 id="fourcc">List of FourCC</h2>
+<table frame="border" rules="all">
+<tr><th rowspan="2">FourCC</th><th rowspan="2">Codec name</th><th rowspan="2">Internal format</th><th colspan="2">Supported input/output format (in order of priority)</th></tr>
+<tr><th>VCM / DMO / MFT</th><th>QT</th></tr>
+<tr><td>ULRA</td><td>UtVideo RGBA</td><td>RGBA 4:4:4:4 8bit full-range</td><td><strong>RGBA</strong></td><td><strong>ARGB</strong></td></tr>
+<tr><td>ULRG</td><td>UtVideo RGB</td><td>RGB 4:4:4 8bit full-range</td><td><strong>RGB24<br>RGB32</strong></td><td><strong>RGB<br>ARGB</strong></td></tr>
+<tr><td>ULY2</td><td>UtVideo YUV422 BT.601</td><td>YCbCr (BT.601) 4:2:2 8bit limited</td><td><strong>YUY2 (YUYV YUNV yuvs)</strong><br><strong>UYVY (UYNV 2vuy)</strong><br>RGB24<br>RGB32</td><td><strong>yuvs</strong><br><strong>2vuy</strong><br>RGB<br>ARGB</td></tr>
+<tr><td>ULY0</td><td>UtVideo YUV420 BT.601</td><td>YCbCr (BT.601) 4:2:0 8bit limited</td><td><strong>YV12</strong><br>YUY2 (YUYV YUNV yuvs)<br>UYVY (UYNV 2vuy)<br>RGB24<br>RGB32</td><td>yuvs<br>2vuy<br>RGB<br>ARGB</td></tr>
+<tr><td>ULH2</td><td>UtVideo YUV422 BT.709</td><td>YCbCr (BT.709) 4:2:2 8bit limited</td><td><strong>HDYC</strong><br><strong>YUY2 (YUYV YUNV yuvs)</strong><br><strong>UYVY (UYNV 2vuy)</strong><br>RGB24<br>RGB32</td><td><strong>HDYC</strong><br><strong>yuvs</strong><br><strong>2vuy</strong><br>RGB<br>ARGB</td></tr>
+<tr><td>ULH0</td><td>UtVideo YUV420 BT.709</td><td>YCbCr (BT.709) 4:2:0 8bit limited</td><td><strong>YV12</strong><br>HDYC<br>YUY2 (YUYV YUNV yuvs)<br>UYVY (UYNV 2vuy)<br>RGB24<br>RGB32</td><td>HDYC<br>yuvs<br>2vuy<br>RGB<br>ARGB</td></tr>
+<tr><td>UQY2</td><td>UtVideo Pro YUV422 10bit</td><td>YCbCr 4:2:2 10bit</td><td><strong>v210</strong></td><td><strong>v210</strong></td></tr>
+</table>
+<ul>
+<li>In &quot;8-bit full-range&quot; of RGB formats, R,G,B=0-255. In &quot;8-bit limited&quot; of YUV formats, Y=16-235 and U,V=16-240.</li>
+<li><strong>Bold</strong> are &quot;native&quot; (no colorspace conversion occurs) formats. It is recommended to input/output with that formats.</li>
+<li>Formats written in brackets are equivalent format with preceding format. For example, YUY2, YUYV and YUNV are equivalent.</li>
+</ul>
+<h2 id="donations">About Donations</h2>
+<p>Ut Video Codec Suite is a free software. Donations to support development are always welcome. For more information, visit <a href="http://umezawa.dyndns.info/wordpress/?page_id=1577">&quot;About Donations&quot; page</a>.</p>
+<h2 id="devenv">Development Environment</h2>
+<h3>Windows</h3>
+<h4>Development Tools</h4>
+<ul>
+<li>Visual Studio 2013</li>
+<li>NASM 2.10.09</li>
+<li>QuickTime 7.3 SDK for Windows</li>
+<li>AMD CodeAnalyst for Windows v3.2</li>
+<li>Inno Setup 5.4.2 (ANSI)</li>
+</ul>
+<h4>Machine 1</h4>
+<dl>
+<dt>OS</dt><dd>Windows 7 Ultimate x64 (ja)</dd>
+<dt>CPU</dt><dd>Intel Core i7-2600K</dd>
+<dt>RAM</dt><dd>DDR3-1600 32GB</dd>
+</dl>
+<h4>Machine 2</h4>
+<dl>
+<dt>OS</dt><dd>Windows 7 Ultimate x64 (ja)</dd>
+<dt>CPU</dt><dd>Intel Core i3-540</dd>
+<dt>RAM</dt><dd>DDR3-1333 16GB</dd>
+</dl>
+<h4>Machine 3</h4>
+<dl>
+<dt>OS</dt><dd>Windows 7 Ultimate x64 (ja)</dd>
+<dt>CPU</dt><dd>Intel Core i7-4770</dd>
+<dt>RAM</dt><dd>DDR3-1600 16GB</dd>
+</dl>
+<h4>Machine 4</h4>
+<dl>
+<dt>OS</dt><dd>Windows 7 Ultimate x64 (ja)</dd>
+<dt>CPU</dt><dd>AMD Phenom II X4 910e</dd>
+<dt>RAM</dt><dd>DDR2-800 4GB</dd>
+</dl>
+<h3>Mac OS X</h3>
+<h4>Development Tools</h4>
+<ul>
+<li>Xcode 3.2.6</li>
+<li>NASM 2.10.09</li>
+</ul>
+<h4>Machine 1</h4>
+<dl>
+<dt>OS</dt><dd>Mac OS X 10.7 Lion</dd>
+<dt>CPU</dt><dd>Intel Core i5-2415M</dd>
+<dt>RAM</dt><dd>DDR3-1333 8GB</dd>
+</dl>
+<h2 id="history">Version history</h2>
+<h3>Version 15.0.0</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>Add QuickTime components (both encode/decode) for Windows.</li>
+<li>ULY2, ULH2, ULY0, ULH0: Add support of YUV422 input/output on QuickTime components.</li>
+<li>UQY2: Add QuickTime components.</li>
+</ul></dd>
+<h3>Version 14.2.1</h3>
+<dl>
+<dt>Bug fixes</dt><dd><ul>
+<li>Configuration of codecs is not properly saved even if "Save configuration globally by codec itself" checkbox in "Global Configuration" is cheked.</li>
+</ul></dd>
+</dl>
+<h3>Version 14.2.0</h3>
+<dl>
+<dt>Performance Improvements</dt><dd><ul>
+<li>UQY2: Add support for multithreading.</li>
+</ul></dd>
+</dl>
+<h3>Version 14.1.1</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>UQY2: Restriction of video width is relaxed.</li>
+</ul></dd>
+</dl>
+<h3>Version 14.0.0</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>Add a codec whose internal format is YUV422 10bit. (FourCC: UQY2). Very slow.</li>
+</ul></dd>
+<dt>Others</dt><dd><ul>
+<li>Changed codec names.</li>
+<li>Changed minimum requirement OS: Windows Vista or later.</li>
+</ul></dd>
+</dl>
+<h3>Version 13.3.1</h3>
+<dl>
+<dt>Bug fixes</dt><dd><ul>
+<li>Codec crashes when run on non-AVX capable processors.</li>
+<li>Codec crashes when run on systems with more than 32 logical processors.</li>
+</ul></dd>
+</dl>
+<h3>Version 13.3.0</h3>
+<dl>
+<dt>Performance Improvements</dt><dd><ul>
+<li>ULRG,ULRA: Speed up decoding video that were encoded with "Optimize for compression ratio" option to RGB32/ARGB.</li>
+</ul></dd>
+</dl>
+<h3>Version 13.2.1</h3>
+<dl>
+<dt>Bug fixes</dt><dd><ul>
+<li>Codec crashes when run on non-SSSE3 capable processors.</li>
+</ul></dd>
+</dl>
+<h3>Version 13.2.0</h3>
+<dl>
+<dt>Performance Improvements</dt><dd><ul>
+<li>Common: (x64) Speed up decoding.</li>
+</ul></dd>
+</dl>
+<h3>Version 13.1.0</h3>
+<dl>
+<dt>Performance Improvements</dt><dd><ul>
+<li>ULRG,ULRA,ULY2,ULH2: Speed up encoding from native colorspace if SSSE3 instructions are available.</li>
+<li>ULRG,ULRA,ULY2,ULH2: Speed up decoding video that were encoded with "Optimize for compression ratio" option to native colorspace if SSSE3 instructions are available.</li>
+<li>ULY2,ULH2: Speed up encoding video from RGB formats if SSSE3 instructions are available.</li>
+<li>ULY2,ULH2: Speed up decoding video to RGB formats if SSE4.1 instructions are available.</li>
+</ul></dd>
+</dl>
+<h3>Version 13.0.1</h3>
+<dl>
+<dt>Others</dt><dd><ul>
+<li>Fix packaging.</li>
+</ul></dd>
+</dl>
+<h3>Version 13.0.0</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>Add codecs that use BT.709-based colorspace conversion coefficient. (FourCC: ULH2, ULH0)</li>
+</ul></dd>
+<dt>Others</dt><dd><ul>
+<li>Changed codec names.</li>
+<li>Changed recommended CPU: Nehalem or later.</li>
+</ul></dd>
+</dl>
+<h3>Version 12.2.1</h3>
+<dl>
+<dt>Bug fixes</dt><dd><ul>
+<li>ULY0: Colorspace conversion routine from/to interlace YUV422 is probably wrong.</li>
+</ul></dd>
+</dl>
+<h3>Version 12.2.0</h3>
+<dl>
+<dt>Performance Improvements</dt><dd><ul>
+<li>Speed up decoding video that were encoded with "Optimize for decoding speed" option. About 5-10% faster.</li>
+<li>(x64) Speed up decoding video that were encoded with "Optimize for compression ratio" option. About 1% faster.</li>
+<li>ULY2: (x64) Speed up encoding from RGB colorspace About 2% faster.</li>
+</ul></dd>
+</dl>
+<h3>Version 12.1.0</h3>
+<dl>
+<dt>Performance Improvements</dt><dd><ul>
+<li>ULRG,ULRA,ULY2: Speed up encoding from native colorspace if AVX instructions are available. About 10% faster in case of x86, and about 12% faster in case of x64.</li>
+<li>ULRG,ULRA,ULY2: Speed up decoding video that were encoded with "Optimize for compression ratio" option to native colorspace if AVX instructions are available. About 5% faster in case of both x86 and x64.</li>
+</ul></dd>
+</dl>
+<h3>Version 12.0.1</h3>
+<dl>
+<dt>Bug fixes</dt><dd><ul>
+<li>Uninstaller failes on Windows Vista or later.</li>
+<li>Common: x64 decoders may crash.</li>
+</ul></dd>
+</dl>
+<h3>Version 12.0.0</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>Add Media Foundation encoders and decoders. No encode setting dialog.</li>
+</ul></dd>
+</dl>
+<h3>Version 11.1.1</h3>
+<dl>
+<dt>Bug fixes</dt><dd><ul>
+<li>(Windows) Size (number of bytes) of frame may not be set correctly when encoding and decoding. </li>
+</ul></dd>
+</dl>
+<h3>Version 11.1.0</h3>
+<dl>
+<dt>Performance Improvements</dt><dd><ul>
+<li>(Mac) Add assembly language version of colorspace conversion routine from RGB to ULY2.</li>
+<li>Common: Speed up decoding a little.</li>
+<li>Common: Speed up encoding on x64 about 10%</li>
+</ul></dd>
+<dt>Others</dt><dd><ul>
+<li>(Mac) encoded size becomes a little smaller by omitting unnecessary media sample flags.</li>
+</ul></dd>
+</dl>
+<h3>Version 11.0.0</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>Add QuickTime encoder components for Mac OS X. Encoding from RGB24/ARGB32 are supported. Not very fast. No encode setting dialog.</li>
+</ul></dd>
+<dt>Bug fixes</dt><dd><ul>
+<li>ULY2: QuickTime decoder may output corrupted data in case of certain width of video and output buffer.</li>
+</ul></dd>
+</dl>
+<h3>Version 10.2.4</h3>
+<dl>
+<dt>Others</dt><dd><ul>
+<li>(Windows) Installer now displays "before-install" notice.</li>
+<li>(Mac) Report more apropreate codec name to QuickTime.</li>
+</ul></dd>
+</dl>
+<h3>Version 10.2.3</h3>
+<dl>
+<dt>Bug fixes</dt><dd><ul>
+<li>(Windows) When setting codec configuration to VCM codec object, it returns failure even though it is successful.</li>
+</ul></dd>
+<dt>Others</dt><dd><ul>
+<li>(Windows) Add "last-resort" .reg file for install troubleshooting.</li>
+</ul></dd>
+</dl>
+<h3>Version 10.2.2</h3>
+<dl>
+<dt>Bug fixes</dt><dd><ul>
+<li>(Windows) Registration of x86 VCM codec is failed on Vista/XP x64.</li>
+</ul></dd>
+</dl>
+<h3>Version 10.2.1</h3>
+<dl>
+<dt>Others</dt><dd><ul>
+<li>(Windows) Installer is now Inno Setup based. Single installer is available for both x86 and x64 windows.</li>
+</ul></dd>
+</dl>
+<h3>Version 10.2.0</h3>
+<dl>
+<dt>Performance Improvements</dt><dd><ul>
+<li>(Mac) Add assembly language version routine. Now as fast as Windows version.</li>
+</ul></dd>
+</dl>
+<h3>Version 10.1.0</h3>
+<dl>
+<dt>Performance Improvements</dt><dd><ul>
+<li>(Mac) Support multithreading.</li>
+</ul></dd>
+</dl>
+<h3>Version 10.0.3</h3>
+<dl>
+<dt>Bug fixes</dt><dd><ul>
+<li>(Windows) Did not check width and height of input/output equal.</li>
+</ul></dd>
+</dl>
+<h3>Version 10.0.2</h3>
+<dl>
+<dt>Bug fixes</dt><dd><ul>
+<li>(Windows) Decoder rarely crashes.</li>
+</ul></dd>
+</dl>
+<h3>Version 10.0.1</h3>
+<dl>
+<dt>Bug fixes</dt><dd><ul>
+<li>(Windows) If "Save configuration globally by codec itself" in "Global Configuration" is checked, codec crashes at initialization.</li>
+</ul></dd>
+<dt>Others</dt><dd><ul>
+<li>(Mac) Changed base SDK from 10.6 to 10.5</li>
+</ul></dd>
+</dl>
+<h3>Version 10.0.0</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>Add QuickTime components for Mac OS X. Decoding to RGB24/ARGB32 are supported. Very slow.</li>
+</ul></dd>
+<dt>Others</dt><dd><ul>
+<li>Input/output format checking is more accurate.</li>
+</ul></dd>
+</dl>
+<h3>Version 9.0.3</h3>
+<dl>
+<dt>Bug fixes</dt><dd><ul>
+<li>ULY2: DMO encoder does not accept the output format that is suggested by itself when the input format is not RGB24/32.</li>
+<li>ULY0: DMO encoder does not accept the output format that is suggested by itself when the input format is not RGB24/32.</li>
+</ul></dd>
+<dt>Others</dt><dd><ul>
+<li>DMO encoders and decoders now does not check some part of input/ouput formats.</li>
+</ul></dd>
+</dl>
+<h3>Version 9.0.1</h3>
+<dl>
+<dt>Bug fixes</dt><dd><ul>
+<li>DMO decoder returns inconsistent formats when enumerates output formats.</li>
+</ul></dd>
+</dl>
+<h3>Version 9.0.0</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>Add DMO decoder.</li>
+</ul></dd>
+</dl>
+<h3>Version 8.5.2</h3>
+<dl>
+<dt>Bug fixes</dt><dd><ul>
+<li>Codec cannot be used via VCM interface because utv_vcm.dll is installed to wrong directory.</li>
+</ul></dd>
+</dl>
+<h3>Version 8.5.1</h3>
+<dl>
+<dt>Bug fixes</dt><dd><ul>
+<li>ULY2: Encoder may crushes and/or video may be broken when encoded from RGB (x64)</li>
+</ul></dd>
+<dt>Others</dt><dd><ul>
+<li>Extract VCM interface from utvideo.dll, into utv_vcm.dll.</li>
+</ul></dd>
+</dl>
+<h3>Version 8.5.0</h3>
+<dl>
+<dt>Performance Improvements</dt><dd><ul>
+<li>common: Speed up decoding (x86) about 10%.</li>
+<li>common: Speed up decoding (x64). Almost fast as x86 version.</li>
+</ul></dd>
+</dl>
+<h3>Version 8.4.0</h3>
+<dl>
+<dt>Performance Improvements</dt><dd><ul>
+<li>ULRG: Speed up decoding &quot;Predict left&quot; video to RGB24 and RGB32. 14% for x86, 6% for x64 (if Core 2).</li>
+<li>ULRA: Speed up decoding &quot;Predict left&quot; video to RGBA. 17% for x86, 6% for x64 (if Core 2).</li>
+</ul></dd>
+</dl>
+<h3>Version 8.3.0</h3>
+<dl>
+<dt>Performance Improvements</dt><dd><ul>
+<li>ULY2: Speed up decoding &quot;Predict left&quot; video to YUY2 and UYVY. About 12% if Core 2.</li>
+<li>ULY0: Speed up decoding &quot;Predict left&quot; video to YV12. About 5% if Core 2.</li>
+</ul></dd>
+<dt>Others</dt><dd><ul>
+<li>ULY2: Delete support for encoding-from and decoding-to YVYU and VYUY.</li>
+<li>ULY0: Delete support for encoding-from and decoding-to YVYU and VYUY.</li>
+</ul></dd>
+</dl>
+<h3>Version 8.2.1</h3>
+<dl>
+<dt>Others</dt><dd><ul>
+<li>ULY2: For the safety, set 255 to the field that might be interpreted as alpha channel when decoding.</li>
+<li>ULY0: For the safety, set 255 to the field that might be interpreted as alpha channel when decoding.</li>
+</ul></dd>
+</dl>
+<h3>Version 8.2.0</h3>
+<dl>
+<dt>Performance Improvements</dt><dd><ul>
+<li>common: Speed up decoding. 20-30% for x86, 20-40% for x64 (if Core 2).</li>
+</ul></dd>
+</dl>
+<h3>Version 8.1.0</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>Encoder is now able to save configuration globally by encoder itself.</li>
+<li>Encoder is now able to ignore setting of cofiguration from codec client (e.g. editing software).</li>
+</ul></dd>
+</dl>
+<h3>Version 8.0.0</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>Add DMO encoder.</li>
+</ul></dd>
+<dt>Others</dt><dd><ul>
+<li>Only x64 version DLLs are included in x64 version installer.</li>
+<li>x86 version installer is now able to be installed to x64 Windows.</li>
+</ul></dd>
+</dl>
+<h3>Version 7.1.1</h3>
+<dl>
+<dt>Others</dt><dd><ul>
+<li>Register DLL file with full path name.</li>
+</ul></dd>
+</dl>
+<h3>Version 7.1.0</h3>
+<dl>
+<dt>Performance Improvements</dt><dd><ul>
+<li>Fix significant performance decrease in Athlon/Phenom-series processors.</li>
+</ul></dd>
+</dl>
+<h3>Version 7.0.4</h3>
+<dl>
+<dt>Others</dt><dd><ul>
+<li>Changed the way to register codecs again.</li>
+</ul></dd>
+</dl>
+<h3>Version 7.0.3</h3>
+<dl>
+<dt>Others</dt><dd><ul>
+<li>Changed the way to register codecs.</li>
+</ul></dd>
+</dl>
+<h3>Version 7.0.2</h3>
+<dl>
+<dt>Others</dt><dd><ul>
+<li>x86 version installer is now unable to be installed to x64 Windows.</li>
+<li>Modified some text.</li>
+</ul></dd>
+</dl>
+<h3>Version 7.0.1</h3>
+<dl>
+<dt>Bug fixes</dt><dd><ul>
+<li>x64 version installer does not register DLLs properly on some OS environment.</li>
+</ul></dd>
+<dt>Others</dt><dd><ul>
+<li>Shorten display names of codecs.</li>
+</ul></dd>
+</dl>
+<h3>Version 7.0.0</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>Add x64 version. Both x64 version DLL and x86 version DLL are included in x64 version installer.</li>
+</ul></dd>
+<dt>Others</dt><dd><ul>
+<li>DLLs are now installed under System32/SysWOW64 directory instead of Program Files directory.</li>
+</ul></dd>
+</dl>
+<h3>Version 6.1.0</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>common: Add option to set frame divide count to # of logical processors.</li>
+</ul></dd>
+</dl>
+<h3>Version 6.0.2</h3>
+<dl>
+<dt>Others</dt><dd><ul>
+<li>Fix packaging.</li>
+</ul></dd>
+</dl>
+<h3>Version 6.0.1</h3>
+<dl>
+<dt>Others</dt><dd><ul>
+<li>DLL is now statically-linked instead of dynamically-linked.</li>
+</ul></dd>
+</dl>
+<h3>Version 6.0.0</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>common: Add support for interlace video.</li>
+</ul></dd>
+<dt>Bug fixes</dt><dd><ul>
+<li>ULY0: Codec may crash if video's height is greater than its width.</li>
+</ul></dd>
+</dl>
+<h3>Version 5.3.1</h3>
+<dl>
+<dt>Bug fixes</dt><dd><ul>
+<li>ULY0: fixed frame dividing method.</li>
+</ul></dd>
+</dl>
+<h3>Version 5.3.0</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>ULY0: Add support for YUY2 input when encoding. (but low speed)</li>
+<li>ULY0: Add support for YUY2 output when decoding. (but low speed)</li>
+</ul></dd>
+</dl>
+<h3>version 5.2.3</h3>
+<dl>
+<dt>Bug fixes</dt><dd><ul>
+<li>common: rarely outputs broken frame when encoding.</li>
+</ul></dd>
+</dl>
+<h3>Version 5.2.2</h3>
+<dl>
+<dt>Others</dt><dd><ul>
+<li>Fix packaging.</li>
+</ul></dd>
+</dl>
+<h3>Version 5.2.1</h3>
+<dl>
+<dt>Others</dt><dd><ul>
+<li>Fix packaging.</li>
+</ul></dd>
+</dl>
+<h3>Version 5.2.0</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>ULY2: Add support for RGB32 input when encoding.</li>
+<li>ULY0: Add support for RGB32 input when encoding. (but low speed)</li>
+<li>ULY0: Add support for RGB32 output when decoding. (but low speed)</li>
+</ul></dd>
+</dl>
+<h3>Version 5.1.2</h3>
+<dl>
+<dt>Others</dt><dd><ul>
+<li>Fix packaging.</li>
+</ul></dd>
+</dl>
+<h3>version 5.1.1</h3>
+<dl>
+<dt>Bug fixes</dt><dd><ul>
+<li>ULY0: Size (number of bytes) of image may not be set correctly when decoding. This bug exists only in ULY0.</li>
+</ul></dd>
+</dl>
+<h3>Version 5.1.0</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>ULY0: Add support for RGB24 input when encoding. (but low speed)</li>
+<li>ULY0: Add support for RGB24 output when decoding. (but low speed)</li>
+</ul></dd>
+</dl>
+<h3>Version 5.0.0</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>Add codec for YUV420 (FourCC: ULY0).</li>
+</ul></dd>
+<dt>Others</dt><dd><ul>
+<li>Switch default prediction mode to "Predict left".</li>
+<li>ULY2: Width now must be multiple of two.</li>
+</ul></dd>
+</dl>
+<h3>Version 4.1.0</h3>
+<dl>
+<dt>Performance Improvements</dt><dd><ul>
+<li>common: Speed up encoding just a little.</li>
+<li>common: Speed up decoding just a little.</li>
+</ul></dd>
+</dl>
+<h3>Version 4.0.2</h3>
+<dl>
+<dt>Others</dt><dd><ul>
+<li>ULRG: For the safety, set 255 to the field that might be interpreted as alpha channel when decoding.</li>
+<li>Common: Set input effective bit count to output biBitCount field when encoding.</li>
+</ul></dd>
+</dl>
+<h3>Version 4.0.1</h3>
+<dl>
+<dt>Others</dt><dd><ul>
+<li>Fix packaging.</li>
+</ul></dd>
+</dl>
+<h3>Version 4.0.0</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>Add codec for RGBA (FourCC: ULRA).</li>
+</ul></dd>
+</dl>
+<h3>Version 3.8.0</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>common: Add "Predict left" intra-frame prediction method. According to my measurement, compared to existing implementation ("Predict median"), approximately same encoding speed, 10% lower compresstion ratio (10% larger file size) and 50% faster decoding speed (30%+ shorter decoding time).</li>
+</ul></dd>
+</dl>
+<h3>Version 3.7.0</h3>
+<dl>
+<dt>Performance Improvements</dt><dd><ul>
+<li>common: Speed up decoding. 9% if Core 2.</li>
+<li>ULY2: Speed up encoding from RGB24. 9% if Core 2.</li>
+</ul></dd>
+</dl>
+<h3>Version 3.6.0</h3>
+<dl>
+<dt>Performance Improvements</dt><dd><ul>
+<li>ULY2: Speed up encoding from RGB24. 42% if Core 2.</li>
+</ul></dd>
+</dl>
+<h3>Version 3.5.0</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>ULY2: Add support for RGB32 output when decoding. Assembly language version is also available.</li>
+</ul></dd>
+<dt>Bug fix</dt><dd><ul>
+<li>ULY2: When encoding from RGB24, trash appears on right edge if width is not multiple of four.</li>
+</ul></dd>
+</dl>
+<h3>Version 3.4.0</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>ULY2: Add support for RGB24 input when encoding. (but low speed)</li>
+</ul></dd>
+<dt>Bug fixes</dt><dd><ul>
+<li>ULY2: Output vertically flipped frames on some environment when decoding to RGB32, because of ignorance of sign of biHeight.</li>
+</ul></dd>
+</dl>
+<h3>Version 3.3.1</h3>
+<dl>
+<dt>Bug fixes</dt><dd><ul>
+<li>Common: Encoder crashes with some video editing and/or capture software.</li>
+</ul></dd>
+<dt>Others</dt><dd><ul>
+<li>Changed title string of configuration dialog.</li>
+<li>Add version string to &quot;About&quot; dialog.</li>
+</ul></dd>
+</dl>
+<h3>Version 3.3.0</h3>
+<dl>
+<dt>Performance Improvements</dt><dd><ul>
+<li>Common: Speed up decoding. 20% if Core 2.</li>
+<li>Common: Speed up encoding. 8% if Core 2.</li>
+<li>ULY2: Speed up decoding to RGB32. 47% if Core 2, including preceding common speedup.</li>
+</ul></dd>
+<dt>Bug fixes</dt><dd><ul>
+<li>Common: Do not output error though starting encoding/decoding with format that cannot be processed.</li>
+</ul></dd>
+</dl>
+<h3>Version 3.2.0</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>ULY2: Add support for RGB32 output when decoding. (but low speed)</li>
+</ul></dd>
+<dt>Bug fixes</dt><dd><ul>
+<li>ULRG: fixed frame dividing method. <strong>Due to this fix, ULRG lost compatibility if frame divide count is not 1.</strong></li>
+</ul></dd>
+</dl>
+<h3>Version 3.1.0</h3>
+<dl>
+<dt>New features</dt><dd><ul>
+<li>ULY2: Add support for YUYV, YUNV, UYVY, UYNV, YVYU and VYUY.</li>
+<li>ULRG: Add support for RGB32.</li>
+</ul></dd>
+<dt>Buf fixes</dt><dd><ul>
+<li>ULRG: WMP crashes for ULRG-encoded files.</li>
+</ul></dd>
+</dl>
+<h3>Version 3.0.0</h3>
+<ul>
+<li>Add codec for RGB (FourCC: ULRG).</li>
+</ul>
+<h3>Version 2.2.0</h3>
+<ul>
+<li>Replaced many routines with assembly language version.</li>
+</ul>
+<h3>Version 2.1.0</h3>
+<ul>
+<li>Add support for multithreading.</li>
+</ul>
+<h3>Version 2.0.0</h3>
+<ul>
+<li>Process frames after divided into bands.</li>
+</ul>
+<h3>Version 1.1.3</h3>
+<p>First public release</p>
+<hr>
+<address><a href="http://umezawa.dyndns.info/">Author's site</a></address>
+</body>
+</html>
