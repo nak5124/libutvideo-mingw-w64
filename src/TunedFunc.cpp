@@ -129,3 +129,5 @@ void ResolveTunedFunc(const TUNEDFUNC *ptfnRoot, const uint32_t *pdwSupportedFea
 			pDst[i] = pTest;
 	}
 }
+
+#include "TunedFunc_x86x64.cpp"

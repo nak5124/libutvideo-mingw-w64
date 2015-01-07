@@ -7,11 +7,11 @@ include config.mak
 
 vpath %.c $(SRCDIR)
 vpath %.h $(SRCDIR)
+vpath %.asm $(SRCPATH)
 
 ASM_OBJS = $(SRCDIR)/Convert_asm_$(TARGET_ARCH).o \
            $(SRCDIR)/HuffmanCode_asm_$(TARGET_ARCH).o \
-           $(SRCDIR)/Predict_asm_$(TARGET_ARCH).o \
-           $(SRCDIR)/TunedFunc_x86x64.o
+           $(SRCDIR)/Predict_asm_$(TARGET_ARCH).o
 
 OBJS = $(SRCDIR)/Codec.o \
        $(SRCDIR)/CodecBase.o \
