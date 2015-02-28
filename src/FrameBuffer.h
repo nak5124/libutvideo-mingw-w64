@@ -5,29 +5,29 @@
 class CFrameBuffer
 {
 private:
-	static const int MAX_PLANE = 4;
+    static const int MAX_PLANE = 4;
 
 private:
-	int m_nPlanes;
-	uint8_t *m_pAllocatedAddr[MAX_PLANE];
-	uint8_t *m_pBufferAddr[MAX_PLANE];
-	size_t m_cbAllocated[MAX_PLANE];
+    int m_nPlanes;
+    uint8_t *m_pAllocatedAddr[MAX_PLANE];
+    uint8_t *m_pBufferAddr[MAX_PLANE];
+    size_t m_cbAllocated[MAX_PLANE];
 
 public:
-	CFrameBuffer(void);
-	~CFrameBuffer(void);
+    CFrameBuffer(void);
+    ~CFrameBuffer(void);
 
 public:
-	void AddPlane(size_t cbBuffer, size_t cbMargin);
+    void AddPlane(size_t cbBuffer, size_t cbMargin);
 
 public:
-	inline uint8_t *GetPlane(int n)
-	{
-		return m_pBufferAddr[n];
-	}
+    inline uint8_t *GetPlane(int n)
+    {
+        return m_pBufferAddr[n];
+    }
 
-	inline uint8_t *GetBuffer(void)
-	{
-		return GetPlane(0);
-	}
+    inline uint8_t *GetBuffer(void)
+    {
+        return GetPlane(0);
+    }
 };

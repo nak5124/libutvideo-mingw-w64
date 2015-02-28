@@ -57,50 +57,50 @@
 class CBT601Coefficient
 {
 public:
-	/*
-	 * 以下のようなの宣言は C++ 仕様上許されず、
-	 * 「スタティック const 整数データ メンバ以外をクラス内で初期化することはできません」
-	 * というエラーになる。次善の策として定数関数として定義する。
-	 *
-	 * gcc だとエラーにならないが、これは独自拡張である。
-	 */
-	//static const float R2Y = COEFF_R2Y8(COEFF_BT601_KR, COEFF_BT601_KB);
+    /*
+     * 以下のようなの宣言は C++ 仕様上許されず、
+     * 「スタティック const 整数データ メンバ以外をクラス内で初期化することはできません」
+     * というエラーになる。次善の策として定数関数として定義する。
+     *
+     * gcc だとエラーにならないが、これは独自拡張である。
+     */
+    //static const float R2Y = COEFF_R2Y8(COEFF_BT601_KR, COEFF_BT601_KB);
 
-	static inline float R2Y(void)   { return (float)COEFF_R2Y8(COEFF_BT601_KR, COEFF_BT601_KB); }
-	static inline float G2Y(void)   { return (float)COEFF_G2Y8(COEFF_BT601_KR, COEFF_BT601_KB); }
-	static inline float B2Y(void)   { return (float)COEFF_B2Y8(COEFF_BT601_KR, COEFF_BT601_KB); }
-	static inline float R2U(void)   { return (float)COEFF_R2U8(COEFF_BT601_KR, COEFF_BT601_KB); }
-	static inline float G2U(void)   { return (float)COEFF_G2U8(COEFF_BT601_KR, COEFF_BT601_KB); }
-	static inline float B2U(void)   { return (float)COEFF_B2U8(COEFF_BT601_KR, COEFF_BT601_KB); }
-	static inline float R2V(void)   { return (float)COEFF_R2V8(COEFF_BT601_KR, COEFF_BT601_KB); }
-	static inline float G2V(void)   { return (float)COEFF_G2V8(COEFF_BT601_KR, COEFF_BT601_KB); }
-	static inline float B2V(void)   { return (float)COEFF_B2V8(COEFF_BT601_KR, COEFF_BT601_KB); }
+    static inline float R2Y(void)   { return (float)COEFF_R2Y8(COEFF_BT601_KR, COEFF_BT601_KB); }
+    static inline float G2Y(void)   { return (float)COEFF_G2Y8(COEFF_BT601_KR, COEFF_BT601_KB); }
+    static inline float B2Y(void)   { return (float)COEFF_B2Y8(COEFF_BT601_KR, COEFF_BT601_KB); }
+    static inline float R2U(void)   { return (float)COEFF_R2U8(COEFF_BT601_KR, COEFF_BT601_KB); }
+    static inline float G2U(void)   { return (float)COEFF_G2U8(COEFF_BT601_KR, COEFF_BT601_KB); }
+    static inline float B2U(void)   { return (float)COEFF_B2U8(COEFF_BT601_KR, COEFF_BT601_KB); }
+    static inline float R2V(void)   { return (float)COEFF_R2V8(COEFF_BT601_KR, COEFF_BT601_KB); }
+    static inline float G2V(void)   { return (float)COEFF_G2V8(COEFF_BT601_KR, COEFF_BT601_KB); }
+    static inline float B2V(void)   { return (float)COEFF_B2V8(COEFF_BT601_KR, COEFF_BT601_KB); }
 
-	static inline float Y2RGB(void) { return (float)COEFF_Y2RGB8; }
-	static inline float U2B(void)   { return (float)COEFF_U2B8(COEFF_BT601_KR, COEFF_BT601_KB); }
-	static inline float V2R(void)   { return (float)COEFF_V2R8(COEFF_BT601_KR, COEFF_BT601_KB); }
-	static inline float U2G(void)   { return (float)COEFF_U2G8(COEFF_BT601_KR, COEFF_BT601_KB); }
-	static inline float V2G(void)   { return (float)COEFF_V2G8(COEFF_BT601_KR, COEFF_BT601_KB); }
+    static inline float Y2RGB(void) { return (float)COEFF_Y2RGB8; }
+    static inline float U2B(void)   { return (float)COEFF_U2B8(COEFF_BT601_KR, COEFF_BT601_KB); }
+    static inline float V2R(void)   { return (float)COEFF_V2R8(COEFF_BT601_KR, COEFF_BT601_KB); }
+    static inline float U2G(void)   { return (float)COEFF_U2G8(COEFF_BT601_KR, COEFF_BT601_KB); }
+    static inline float V2G(void)   { return (float)COEFF_V2G8(COEFF_BT601_KR, COEFF_BT601_KB); }
 };
 
 class CBT709Coefficient
 {
 public:
-	static inline float R2Y(void)   { return (float)COEFF_R2Y8(COEFF_BT709_KR, COEFF_BT709_KB); }
-	static inline float G2Y(void)   { return (float)COEFF_G2Y8(COEFF_BT709_KR, COEFF_BT709_KB); }
-	static inline float B2Y(void)   { return (float)COEFF_B2Y8(COEFF_BT709_KR, COEFF_BT709_KB); }
-	static inline float R2U(void)   { return (float)COEFF_R2U8(COEFF_BT709_KR, COEFF_BT709_KB); }
-	static inline float G2U(void)   { return (float)COEFF_G2U8(COEFF_BT709_KR, COEFF_BT709_KB); }
-	static inline float B2U(void)   { return (float)COEFF_B2U8(COEFF_BT709_KR, COEFF_BT709_KB); }
-	static inline float R2V(void)   { return (float)COEFF_R2V8(COEFF_BT709_KR, COEFF_BT709_KB); }
-	static inline float G2V(void)   { return (float)COEFF_G2V8(COEFF_BT709_KR, COEFF_BT709_KB); }
-	static inline float B2V(void)   { return (float)COEFF_B2V8(COEFF_BT709_KR, COEFF_BT709_KB); }
+    static inline float R2Y(void)   { return (float)COEFF_R2Y8(COEFF_BT709_KR, COEFF_BT709_KB); }
+    static inline float G2Y(void)   { return (float)COEFF_G2Y8(COEFF_BT709_KR, COEFF_BT709_KB); }
+    static inline float B2Y(void)   { return (float)COEFF_B2Y8(COEFF_BT709_KR, COEFF_BT709_KB); }
+    static inline float R2U(void)   { return (float)COEFF_R2U8(COEFF_BT709_KR, COEFF_BT709_KB); }
+    static inline float G2U(void)   { return (float)COEFF_G2U8(COEFF_BT709_KR, COEFF_BT709_KB); }
+    static inline float B2U(void)   { return (float)COEFF_B2U8(COEFF_BT709_KR, COEFF_BT709_KB); }
+    static inline float R2V(void)   { return (float)COEFF_R2V8(COEFF_BT709_KR, COEFF_BT709_KB); }
+    static inline float G2V(void)   { return (float)COEFF_G2V8(COEFF_BT709_KR, COEFF_BT709_KB); }
+    static inline float B2V(void)   { return (float)COEFF_B2V8(COEFF_BT709_KR, COEFF_BT709_KB); }
 
-	static inline float Y2RGB(void) { return (float)COEFF_Y2RGB8; }
-	static inline float U2B(void)   { return (float)COEFF_U2B8(COEFF_BT709_KR, COEFF_BT709_KB); }
-	static inline float V2R(void)   { return (float)COEFF_V2R8(COEFF_BT709_KR, COEFF_BT709_KB); }
-	static inline float U2G(void)   { return (float)COEFF_U2G8(COEFF_BT709_KR, COEFF_BT709_KB); }
-	static inline float V2G(void)   { return (float)COEFF_V2G8(COEFF_BT709_KR, COEFF_BT709_KB); }
+    static inline float Y2RGB(void) { return (float)COEFF_Y2RGB8; }
+    static inline float U2B(void)   { return (float)COEFF_U2B8(COEFF_BT709_KR, COEFF_BT709_KB); }
+    static inline float V2R(void)   { return (float)COEFF_V2R8(COEFF_BT709_KR, COEFF_BT709_KB); }
+    static inline float U2G(void)   { return (float)COEFF_U2G8(COEFF_BT709_KR, COEFF_BT709_KB); }
+    static inline float V2G(void)   { return (float)COEFF_V2G8(COEFF_BT709_KR, COEFF_BT709_KB); }
 };
 
 

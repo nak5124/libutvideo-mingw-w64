@@ -3,13 +3,13 @@
 %macro SIMPLE_PROLOGUE 1-*
 %xdefine %$numlocal %1
 %xdefine %$argsoffset (%$numlocal + 4 * 4 + 4)
-	push		ebp
-	mov			ebp, esp
-	push		ebx
-	push		esi
-	push		edi
+    push        ebp
+    mov         ebp, esp
+    push        ebx
+    push        esi
+    push        edi
 %if %$numlocal != 0
-	sub			esp, %$numlocal
+    sub         esp, %$numlocal
 %endif
 %assign i 0
 %rep %0-1
@@ -22,13 +22,13 @@
 
 %macro SIMPLE_EPILOGUE 0
 %if %$numlocal != 0
-	add			esp, %$numlocal
+    add         esp, %$numlocal
 %endif
-	pop			edi
-	pop			esi
-	pop			ebx
-	pop			ebp
-	ret
+    pop         edi
+    pop         esi
+    pop         ebx
+    pop         ebp
+    ret
 %endmacro
 
 %macro MULTI_CONTEXT_XDEFINE 0-*

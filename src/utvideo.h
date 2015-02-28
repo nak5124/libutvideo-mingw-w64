@@ -8,17 +8,17 @@
 
 #ifndef FCC
 #define FCC(fcc) ( \
-	(((uint32_t)(fcc) & 0x000000ff) << 24) | \
-	(((uint32_t)(fcc) & 0x0000ff00) <<  8) | \
-	(((uint32_t)(fcc) & 0x00ff0000) >>  8) | \
-	(((uint32_t)(fcc) & 0xff000000) >> 24))
+    (((uint32_t)(fcc) & 0x000000ff) << 24) | \
+    (((uint32_t)(fcc) & 0x0000ff00) <<  8) | \
+    (((uint32_t)(fcc) & 0x00ff0000) >>  8) | \
+    (((uint32_t)(fcc) & 0xff000000) >> 24))
 #endif
 
 #define UNFCC(fcc) ( \
-	(((uint32_t)(fcc) & 0x000000ff) << 24) | \
-	(((uint32_t)(fcc) & 0x0000ff00) <<  8) | \
-	(((uint32_t)(fcc) & 0x00ff0000) >>  8) | \
-	(((uint32_t)(fcc) & 0xff000000) >> 24))
+    (((uint32_t)(fcc) & 0x000000ff) << 24) | \
+    (((uint32_t)(fcc) & 0x0000ff00) <<  8) | \
+    (((uint32_t)(fcc) & 0x00ff0000) >>  8) | \
+    (((uint32_t)(fcc) & 0xff000000) >> 24))
 
 #ifdef _MSC_VER
 #ifndef _SSIZE_T_DEFINED
@@ -134,24 +134,24 @@ typedef uint32_t utvf_t;
 class DebugEnterLeave
 {
 private:
-	char buf[256];
+    char buf[256];
 public:
-	DebugEnterLeave(char *fmt, ...)
-	{
-		va_list argptr;
-		va_start(argptr, fmt);
+    DebugEnterLeave(char *fmt, ...)
+    {
+        va_list argptr;
+        va_start(argptr, fmt);
 #pragma warning(push)
 #pragma warning(disable:4996)
-		vsnprintf(buf, _countof(buf), fmt, argptr);
+        vsnprintf(buf, _countof(buf), fmt, argptr);
 #pragma warning(pop)
-		va_end(argptr);
-		_RPT1(_CRT_WARN, "enter %s\n", buf);
-	}
+        va_end(argptr);
+        _RPT1(_CRT_WARN, "enter %s\n", buf);
+    }
 
-	~DebugEnterLeave()
-	{
-		_RPT1(_CRT_WARN, "leave %s\n", buf);
-	}
+    ~DebugEnterLeave()
+    {
+        _RPT1(_CRT_WARN, "leave %s\n", buf);
+    }
 };
 #define DEBUG_ENTER_LEAVE(...) class DebugEnterLeave debug_enter_leave_object(__VA_ARGS__)
 #else
