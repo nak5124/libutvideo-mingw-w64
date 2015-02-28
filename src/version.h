@@ -1,10 +1,10 @@
 #define UTVIDEO_COMMENT \
-/* $Id: version.h 1215 2015-01-04 07:28:24Z umezawa $ */
+/* $Id: version.h 1234 2015-02-28 12:23:43Z umezawa $ */
 
 #ifndef UTVIDEO_VERSION
 
 #define UTVIDEO_VERSION_MAJOR  15
-#define UTVIDEO_VERSION_MINOR   0
+#define UTVIDEO_VERSION_MINOR   1
 #define UTVIDEO_VERSION_BUGFIX  0
 
 #ifndef ISPP_INVOKED
