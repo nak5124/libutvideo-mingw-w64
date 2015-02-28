@@ -1,5 +1,5 @@
 /* •¶ŽšƒR[ƒh‚Í‚r‚i‚h‚r ‰üsƒR[ƒh‚Í‚b‚q‚k‚e */
-/* $Id: CPUID.h 1200 2014-12-21 00:57:37Z umezawa $ */
+/* $Id: CPUID.h 1232 2015-02-23 12:37:58Z umezawa $ */
 
 #pragma once
 
@@ -26,10 +26,10 @@ static inline void cpuid(cpuid_result *result, uint32_t leaf, uint32_t subleaf)
 	(
 		"cpuid"
 		:
-		"=a"(res->eax),
-		"=b"(res->ebx),
-		"=c"(res->ecx),
-		"=d"(res->edx)
+		"=a"(result->eax),
+		"=b"(result->ebx),
+		"=c"(result->ecx),
+		"=d"(result->edx)
 		:
 		"a"(leaf),
 		"c"(subleaf)
@@ -60,10 +60,10 @@ static inline void xgetbv(xgetbv_result *result, uint32_t idx)
 #elif defined(__GNUC__)
 	__asm__ __volatile__
 	(
-		"xgetbv"
+		".byte 0x0f, 0x01, 0xd0" //"xgetbv"
 		:
-		"=a"(res->eax),
-		"=d"(res->edx)
+		"=a"(result->eax),
+		"=d"(result->edx)
 		:
 		"c"(idx)
 	);
@@ -72,6 +72,6 @@ static inline void xgetbv(xgetbv_result *result, uint32_t idx)
 #endif
 
 #ifdef _DEBUG
-	_RPT2(_CRT_WARN, "XGETBV.%-2d EAX=%08X EDX=%08X\n", result->eax, result->edx);
+	_RPT3(_CRT_WARN, "XGETBV.%-2d EAX=%08X EDX=%08X\n", idx, result->eax, result->edx);
 #endif
 }

@@ -1,5 +1,5 @@
 ; 文字コードはＳＪＩＳ 改行コードはＣＲＬＦ
-; $Id: setup_win.iss 1217 2015-01-04 07:38:49Z umezawa $
+; $Id: setup_win.iss 1229 2015-01-30 12:22:01Z umezawa $
 
 #include "../utv_core/version.h"
 
@@ -24,11 +24,15 @@ InfoAfterFile=info.en.rtf
 Name: "en"; MessagesFile: "compiler:Default.isl";
 Name: "ja"; MessagesFile: "compiler:Languages\Japanese.isl"; InfoBeforeFile: "before.ja.rtf"; InfoAfterFile: "info.ja.rtf"
 
-[Types]
+[CustomMessages]
+MainFilesComponents=Main Files
+ja.MainFilesComponents=メインファイル
+QuickTimeComponents=QuickTime Components
+ja.QuickTimeComponents=QuickTimeコンポーネント
 
 [Components]
-Name: "main"; Description: "Main Files";           Types: full compact custom; Flags: fixed;
-Name: "qt";   Description: "QuickTime Components"; Types: full;
+Name: "main"; Description: "{cm:MainFilesComponents}"; Types: full compact custom; Flags: fixed;
+Name: "qt";   Description: "{cm:QuickTimeComponents}"; Types: full;
 
 [Files]
 Source: "..\Release\utv_core.dll";     DestDir: "{sys}"; Flags: ignoreversion 32bit;
@@ -40,7 +44,6 @@ Source: "..\x64\Release\utv_core.dll"; DestDir: "{sys}"; Flags: ignoreversion 64
 Source: "..\x64\Release\utv_vcm.dll";  DestDir: "{sys}"; Flags: ignoreversion 64bit;           Check: Is64BitInstallMode
 Source: "..\x64\Release\utv_dmo.dll";  DestDir: "{sys}"; Flags: ignoreversion 64bit regserver; Check: Is64BitInstallMode
 Source: "..\x64\Release\utv_mft.dll";  DestDir: "{sys}"; Flags: ignoreversion 64bit regserver; Check: Is64BitInstallMode; MinVersion: 0, 6.0
-Source: "..\Release\utv_cfg.exe";      DestDir: "{app}"; Flags: ignoreversion;
 Source: "..\gplv2.rtf";                DestDir: "{app}"; Flags: ignoreversion;
 Source: "..\gplv2.txt";                DestDir: "{app}"; Flags: ignoreversion;
 Source: "..\gplv2.ja.sjis.txt";        DestDir: "{app}"; Flags: ignoreversion;
@@ -66,7 +69,7 @@ Root: HKLM64; Subkey: "Software\Microsoft\Windows NT\CurrentVersion\Drivers32"; 
 Root: HKLM64; Subkey: "Software\Microsoft\Windows NT\CurrentVersion\Drivers32"; ValueName: "VIDC.UQY2"; ValueType: string; ValueData: "{sys}\utv_vcm.dll"; Flags: uninsdeletevalue; Check: Is64BitInstallMode
 
 [Icons]
-Name: "{group}\Global Configuration";             Filename: "{app}\utv_cfg.exe"
+Name: "{group}\Global Configuration";             Filename: "{sys}\rundll32.exe"; Parameters: "{sys}\utv_core.dll,GlobalConfigDialog"
 Name: "{group}\License Agreement (English, RTF)"; Filename: "{app}\gplv2.rtf"
 Name: "{group}\License Agreement (English)";      Filename: "{app}\gplv2.txt"
 Name: "{group}\License Agreement (Japanese)";     Filename: "{app}\gplv2.ja.sjis.txt"
