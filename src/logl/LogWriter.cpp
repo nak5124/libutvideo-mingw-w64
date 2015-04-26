@@ -33,7 +33,7 @@ int InitializeLogWriter(void)
         CloseHandle(hLogPipe);
         return -1;
     }
-    sprintf(buf, "[%d]\n", GetCurrentProcessId());
+    sprintf(buf, "[%lu]\n", GetCurrentProcessId());
     if (!WriteFile(hLogPipe, buf, strlen(buf), &cbWritten, NULL) || cbWritten != strlen(buf))
     {
         CloseHandle(hLogPipe);
