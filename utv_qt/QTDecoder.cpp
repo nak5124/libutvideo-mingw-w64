@@ -1,5 +1,5 @@
 /* •¶ŽšƒR[ƒh‚Í‚r‚i‚h‚r ‰üsƒR[ƒh‚Í‚b‚q‚k‚e */
-/* $Id: QTDecoder.cpp 1214 2015-01-03 13:18:39Z umezawa $ */
+/* $Id: QTDecoder.cpp 1289 2015-04-18 14:34:30Z umezawa $ */
 
 #include "stdafx.h"
 #include "utvideo.h"
@@ -38,6 +38,8 @@ pascal ComponentResult QTDecoderOpen(CQTDecoder *glob, ComponentInstance self)
 	if (glob == NULL)
 		return memFullErr;
 
+	LOGPRINTF("QTDecoderOpen(glob=%p, self=%p)", glob, self);
+
 	err = QTCodecOpen(glob, self);
 	if (err != noErr)
 	{
@@ -75,6 +77,8 @@ pascal ComponentResult QTDecoderOpen(CQTDecoder *glob, ComponentInstance self)
 
 pascal ComponentResult QTDecoderClose(CQTDecoder *glob, ComponentInstance self)
 {
+	LOGPRINTF("QTDecoderClose(glob=%p, self=%p)", glob, self);
+
 	if (glob != NULL)
 	{
 		if (glob->wantedDestinationPixelTypes != NULL)
@@ -165,7 +169,7 @@ pascal ComponentResult QTDecoderDrawBand(CQTDecoder *glob, ImageSubCodecDecompre
 {
 	CMutexLock lock(glob->mutex);
 
-	glob->codec->DecodeFrame(drp->baseAddr, drp->codecData, true /* XXX */);
+	glob->codec->DecodeFrame(drp->baseAddr, drp->codecData);
 
 	return noErr;
 }

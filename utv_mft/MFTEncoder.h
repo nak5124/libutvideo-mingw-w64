@@ -1,5 +1,5 @@
 /* •¶ŽšƒR[ƒh‚Í‚r‚i‚h‚r ‰üsƒR[ƒh‚Í‚b‚q‚k‚e */
-/* $Id: MFTEncoder.h 1143 2014-04-06 13:35:12Z umezawa $ */
+/* $Id: MFTEncoder.h 1269 2015-04-04 10:37:05Z umezawa $ */
 
 // MFTEncoder.h : CMFTEncoder ‚ÌéŒ¾
 
@@ -52,17 +52,17 @@ public:
 
 	int GetExtraData(void *pExtraData, size_t cbExtraData, utvf_t outfmt, utvf_t infmt, unsigned int width, unsigned int height)
 	{
-		return m_pCodec->EncodeGetExtraData(pExtraData, cbExtraData, infmt, width, height, CBGROSSWIDTH_WINDOWS);
+		return m_pCodec->EncodeGetExtraData(pExtraData, cbExtraData, infmt, width, height);
 	}
 
 	size_t GetSize(utvf_t outfmt, utvf_t infmt, unsigned int width, unsigned int height)
 	{
-		return m_pCodec->EncodeGetOutputSize(infmt, width, height, CBGROSSWIDTH_WINDOWS);
+		return m_pCodec->EncodeGetOutputSize(infmt, width, height);
 	}
 
 	int Query(utvf_t outfmt, utvf_t infmt, unsigned int width, unsigned int height, const void *pOutExtraData, size_t cbOutExtraData, const void *pInExtraData, size_t cbInExtraData)
 	{
-		return m_pCodec->EncodeQuery(infmt, width, height, CBGROSSWIDTH_WINDOWS);
+		return m_pCodec->EncodeQuery(infmt, width, height);
 	}
 
 public:

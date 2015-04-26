@@ -1,5 +1,5 @@
 /* 文字コードはＳＪＩＳ 改行コードはＣＲＬＦ */
-/* $Id: utv_mft.cpp 918 2012-09-23 15:48:43Z umezawa $ */
+/* $Id: utv_mft.cpp 1289 2015-04-18 14:34:30Z umezawa $ */
 
 // utv_mft.cpp : DLL エクスポートの実装です。
 
@@ -24,10 +24,18 @@ CUtVideoMFTModule _AtlModule;
 #endif
 
 // DLL エントリ ポイント
-extern "C" BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
+extern "C" BOOL WINAPI DllMain(HINSTANCE hModule, DWORD dwReason, LPVOID lpReserved)
 {
-	hInstance;
-    return _AtlModule.DllMain(dwReason, lpReserved); 
+	if (dwReason == DLL_PROCESS_ATTACH)
+	{
+		LOGPRINTF("DllMain(hModule=%p, dwReason=DLL_PROCESS_ATTACH, lpReserved=%p)", hModule, lpReserved);
+	}
+	else if (dwReason == DLL_PROCESS_DETACH)
+	{
+		LOGPRINTF("DllMain(hModule=%p, dwReason=DLL_PROCESS_DETACH, lpReserved=%p)", hModule, lpReserved);
+	}
+
+	return _AtlModule.DllMain(dwReason, lpReserved);
 }
 
 #ifdef _MANAGED

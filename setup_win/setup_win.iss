@@ -1,5 +1,5 @@
 ; ï∂éöÉRÅ[ÉhÇÕÇrÇiÇhÇr â¸çsÉRÅ[ÉhÇÕÇbÇqÇkÇe
-; $Id: setup_win.iss 1229 2015-01-30 12:22:01Z umezawa $
+; $Id: setup_win.iss 1288 2015-04-18 14:11:29Z umezawa $
 
 #include "../utv_core/version.h"
 
@@ -40,6 +40,7 @@ Source: "..\Release\utv_vcm.dll";      DestDir: "{sys}"; Flags: ignoreversion 32
 Source: "..\Release\utv_dmo.dll";      DestDir: "{sys}"; Flags: ignoreversion 32bit regserver;
 Source: "..\Release\utv_mft.dll";      DestDir: "{sys}"; Flags: ignoreversion 32bit regserver;                            MinVersion: 0, 6.0
 Source: "..\Release\utv_qt.qtx";       DestDir: "{pf32}\QuickTime\QTComponents"; Flags: ignoreversion 32bit; Components: qt;
+Source: "..\Release\utv_logc.exe";     DestDir: "{app}"; Flags: ignoreversion;
 Source: "..\x64\Release\utv_core.dll"; DestDir: "{sys}"; Flags: ignoreversion 64bit;           Check: Is64BitInstallMode
 Source: "..\x64\Release\utv_vcm.dll";  DestDir: "{sys}"; Flags: ignoreversion 64bit;           Check: Is64BitInstallMode
 Source: "..\x64\Release\utv_dmo.dll";  DestDir: "{sys}"; Flags: ignoreversion 64bit regserver; Check: Is64BitInstallMode

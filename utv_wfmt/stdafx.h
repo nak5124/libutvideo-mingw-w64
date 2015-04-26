@@ -1,5 +1,5 @@
 /* 文字コードはＳＪＩＳ 改行コードはＣＲＬＦ */
-/* $Id: stdafx.h 919 2012-10-06 07:58:57Z umezawa $ */
+/* $Id: stdafx.h 1262 2015-03-28 18:33:39Z umezawa $ */
 
 // stdafx.h : 標準のシステム インクルード ファイルのインクルード ファイル、または
 // 参照回数が多く、かつあまり変更されない、プロジェクト専用のインクルード ファイル
@@ -25,5 +25,3 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-#include <crtdbg.h> // XXX

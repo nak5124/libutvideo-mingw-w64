@@ -1,5 +1,5 @@
 /* 文字コードはＳＪＩＳ 改行コードはＣＲＬＦ */
-/* $Id: utv_vcm.cpp 641 2011-03-10 10:39:27Z umezawa $ */
+/* $Id: utv_vcm.cpp 1289 2015-04-18 14:34:30Z umezawa $ */
 
 // utv_vcm.cpp : DLL アプリケーションのエントリ ポイントを定義します。
 //
@@ -13,6 +13,15 @@
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 {
+	if (dwReason == DLL_PROCESS_ATTACH)
+	{
+		LOGPRINTF("DllMain(hModule=%p, dwReason=DLL_PROCESS_ATTACH, lpReserved=%p)", hModule, lpReserved);
+	}
+	else if (dwReason == DLL_PROCESS_DETACH)
+	{
+		LOGPRINTF("DllMain(hModule=%p, dwReason=DLL_PROCESS_DETACH, lpReserved=%p)", hModule, lpReserved);
+	}
+
 	return TRUE;
 }
 

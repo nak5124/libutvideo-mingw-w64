@@ -1,5 +1,5 @@
 /* ï∂éöÉRÅ[ÉhÇÕÇrÇiÇhÇr â¸çsÉRÅ[ÉhÇÕÇbÇqÇkÇe */
-/* $Id: CodecBase.h 1182 2014-05-29 12:49:01Z umezawa $ */
+/* $Id: CodecBase.h 1266 2015-04-04 07:05:02Z umezawa $ */
 
 #pragma once
 #include "Codec.h"
@@ -28,9 +28,25 @@ public:
 	virtual void GetLongFriendlyName(wchar_t *pszName, size_t cchName);
 	virtual int SetState(const void *pState, size_t cb);
 
+	virtual int EncodeBegin(utvf_t infmt, unsigned int width, unsigned int height, size_t cbGrossWidth);
+	virtual int EncodeEnd(void);
+	virtual int EncodeQuery(utvf_t infmt, unsigned int width, unsigned int height);
+	virtual int DecodeBegin(utvf_t outfmt, unsigned int width, unsigned int height, size_t cbGrossWidth, const void *pExtraData, size_t cbExtraData);
+	virtual int DecodeEnd(void);
+	virtual int DecodeQuery(utvf_t outfmt, unsigned int width, unsigned int height, const void *pExtraData, size_t cbExtraData);
+
 protected:
 	int LoadConfig(void);
 	int SaveConfig(void);
-	virtual int InternalSetState(const void *pState, size_t cb) = 0;
+	int InternalSetStateWrapper(const void *pState, size_t cb);
 	int CalcRawFrameMetric(utvf_t rawfmt, unsigned int width, unsigned int height, size_t cbGrossWidth);
+
+	virtual int InternalSetState(const void *pState, size_t cb) = 0;
+
+	virtual int InternalEncodeBegin(utvf_t infmt, unsigned int width, unsigned int height, size_t cbGrossWidth) = 0;
+	virtual int InternalEncodeEnd(void) = 0;
+	virtual int InternalEncodeQuery(utvf_t infmt, unsigned int width, unsigned int height) = 0;
+	virtual int InternalDecodeBegin(utvf_t outfmt, unsigned int width, unsigned int height, size_t cbGrossWidth, const void *pExtraData, size_t cbExtraData) = 0;
+	virtual int InternalDecodeEnd(void) = 0;
+	virtual int InternalDecodeQuery(utvf_t outfmt, unsigned int width, unsigned int height, const void *pExtraData, size_t cbExtraData) = 0;
 };

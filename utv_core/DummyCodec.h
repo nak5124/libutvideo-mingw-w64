@@ -1,5 +1,5 @@
 /* ï∂éöÉRÅ[ÉhÇÕÇrÇiÇhÇr â¸çsÉRÅ[ÉhÇÕÇbÇqÇkÇe */
-/* $Id: DummyCodec.h 1059 2013-06-03 14:45:36Z umezawa $ */
+/* $Id: DummyCodec.h 1269 2015-04-04 10:37:05Z umezawa $ */
 
 #pragma once
 #include "Codec.h"
@@ -38,13 +38,14 @@ public:
 	virtual size_t EncodeFrame(void *pOutput, bool *pbKeyFrame, const void *pInput);
 	virtual int EncodeEnd(void);
 	virtual size_t EncodeGetExtraDataSize(void);
-	virtual int EncodeGetExtraData(void *pExtraData, size_t cb, utvf_t infmt, unsigned int width, unsigned int height, size_t cbGrossWidth);
-	virtual size_t EncodeGetOutputSize(utvf_t infmt, unsigned int width, unsigned int height, size_t cbGrossWidth);
-	virtual int EncodeQuery(utvf_t infmt, unsigned int width, unsigned int height, size_t cbGrossWidth);
+	virtual int EncodeGetExtraData(void *pExtraData, size_t cb, utvf_t infmt, unsigned int width, unsigned int height);
+	virtual size_t EncodeGetOutputSize(utvf_t infmt, unsigned int width, unsigned int height);
+	virtual int EncodeQuery(utvf_t infmt, unsigned int width, unsigned int height);
 
 	virtual int DecodeBegin(utvf_t outfmt, unsigned int width, unsigned int height, size_t cbGrossWidth, const void *pExtraData, size_t cbExtraData);
-	virtual size_t DecodeFrame(void *pOutput, const void *pInput, bool bKeyFrame);
+	virtual size_t DecodeFrame(void *pOutput, const void *pInput);
+	virtual int DecodeGetFrameType(bool *pbKeyFrame, const void *pInput);
 	virtual int DecodeEnd(void);
 	virtual size_t DecodeGetOutputSize(utvf_t outfmt, unsigned int width, unsigned int height, size_t cbGrossWidth);
-	virtual int DecodeQuery(utvf_t outfmt, unsigned int width, unsigned int height, size_t cbGrossWidth, const void *pExtraData, size_t cbExtraData);
+	virtual int DecodeQuery(utvf_t outfmt, unsigned int width, unsigned int height, const void *pExtraData, size_t cbExtraData);
 };

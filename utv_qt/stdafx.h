@@ -1,5 +1,5 @@
 /* 文字コードはＳＪＩＳ 改行コードはＣＲＬＦ */
-/* $Id: stdafx.h 1208 2014-12-29 01:38:56Z umezawa $ */
+/* $Id: stdafx.h 1275 2015-04-05 14:06:51Z umezawa $ */
 
 // stdafx.h : 標準のシステム インクルード ファイルのインクルード ファイル、または
 // 参照回数が多く、かつあまり変更されない、プロジェクト専用のインクルード ファイル
@@ -8,14 +8,14 @@
 
 #pragma once
 
+#define _CRT_SECURE_NO_WARNINGS 1
+
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-#ifdef _MSC_VER
-#include <crtdbg.h>
-#endif
+#include <myinttypes.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -54,3 +54,8 @@
 #include <QuickTime/QuickTimeComponents.h>
 #include <QuickTime/ImageCodec.h>
 #endif
+
+#define LOG_MODULE_NAME "utv_qt  "
+
+#include <LogWriter.h>
+#include <LogUtil.h>

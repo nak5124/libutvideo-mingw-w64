@@ -1,5 +1,5 @@
 /* •¶ŽšƒR[ƒh‚Í‚r‚i‚h‚r ‰üsƒR[ƒh‚Í‚b‚q‚k‚e */
-/* $Id: DMODecoder.cpp 914 2012-09-17 10:05:59Z umezawa $ */
+/* $Id: DMODecoder.cpp 1289 2015-04-18 14:34:30Z umezawa $ */
 
 // DMODecoder.cpp : CDMODecoder ‚ÌŽÀ‘•
 
@@ -13,7 +13,7 @@ const GUID &CDMODecoder::DMOCATEGORY = DMOCATEGORY_VIDEO_DECODER;
 
 HRESULT CDMODecoder::InternalAllocateStreamingResources()
 {
-	_RPT0(_CRT_WARN, "CDMODecoder::InternalAllocateStreamingResources()\n");
+	LOGPRINTF("%p CDMODecoder::InternalAllocateStreamingResources()", this);
 
 	const DMO_MEDIA_TYPE *pmtIn  = InputType(0);
 	const DMO_MEDIA_TYPE *pmtOut = OutputType(0);
@@ -33,7 +33,7 @@ HRESULT CDMODecoder::InternalAllocateStreamingResources()
 
 HRESULT CDMODecoder::InternalFreeStreamingResources()
 {
-	_RPT0(_CRT_WARN, "CDMODecoder::InternalFreeStreamingResources()\n");
+	LOGPRINTF("%p CDMODecoder::InternalFreeStreamingResources()", this);
 
 	m_pCodec->DecodeEnd();
 
@@ -42,8 +42,6 @@ HRESULT CDMODecoder::InternalFreeStreamingResources()
 
 HRESULT CDMODecoder::InternalProcessOutput(DWORD dwFlags, DWORD cOutputBufferCount, DMO_OUTPUT_DATA_BUFFER *pOutputBuffers, DWORD *pdwStatus)
 {
-	_RPT0(_CRT_WARN, "CDMODecoder::InternalProcessOutput()\n");
-
 	BYTE *pInput;
 	BYTE *pOutput;
 	size_t cbOutput;
@@ -54,7 +52,7 @@ HRESULT CDMODecoder::InternalProcessOutput(DWORD dwFlags, DWORD cOutputBufferCou
 	pOutputBuffers->pBuffer->GetBufferAndLength(&pOutput, NULL);
 	m_pInputBuffer->GetBufferAndLength(&pInput, NULL);
 
-	cbOutput = m_pCodec->DecodeFrame(pOutput, pInput, m_bInputKeyFrame != 0);
+	cbOutput = m_pCodec->DecodeFrame(pOutput, pInput);
 
 	pOutputBuffers->dwStatus = 0;
 	pOutputBuffers->dwStatus |= DMO_OUTPUT_DATA_BUFFERF_SYNCPOINT;

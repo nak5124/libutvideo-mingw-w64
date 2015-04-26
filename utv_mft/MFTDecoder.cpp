@@ -1,5 +1,5 @@
 /* •¶ŽšƒR[ƒh‚Í‚r‚i‚h‚r ‰üsƒR[ƒh‚Í‚b‚q‚k‚e */
-/* $Id: MFTDecoder.cpp 951 2012-10-17 11:31:55Z umezawa $ */
+/* $Id: MFTDecoder.cpp 1289 2015-04-18 14:34:30Z umezawa $ */
 
 // MFTDecoder.cpp : CMFTDecoder ‚ÌŽÀ‘•
 
@@ -13,7 +13,7 @@ const GUID &CMFTDecoder::MFTCATEGORY = MFT_CATEGORY_VIDEO_DECODER;
 
 HRESULT CMFTDecoder::InternalBeginStream(void)
 {
-	_RPT0(_CRT_WARN, "CMFTDecoder::InternalBeginStream()\n");
+	LOGPRINTF("%p CMFTDecoder::InternalBeginStream()", this);
 
 	if (m_pCodec->DecodeBegin(m_outfmt, m_nFrameWidth, m_nFrameHeight, CBGROSSWIDTH_WINDOWS, m_pInputUserData, m_cbInputUserData) == 0)
 		return S_OK;
@@ -23,7 +23,7 @@ HRESULT CMFTDecoder::InternalBeginStream(void)
 
 HRESULT CMFTDecoder::InternalEndStream(void)
 {
-	_RPT0(_CRT_WARN, "CMFTDecoder::InternalEndStream()\n");
+	LOGPRINTF("%p CMFTDecoder::InternalEndStream()", this);
 
 	m_pCodec->DecodeEnd();
 
@@ -32,8 +32,6 @@ HRESULT CMFTDecoder::InternalEndStream(void)
 
 HRESULT CMFTDecoder::InternalProcessOutput(IMFSample *pOutputSample, IMFSample *pInputSample)
 {
-	_RPT0(_CRT_WARN, "CMFTDecoder::InternalProcessOutput()\n");
-
 	size_t cbOutput;
 	UINT32 bKeyFrame;
 	IMFMediaBuffer *pInputBuffer;
@@ -47,7 +45,7 @@ HRESULT CMFTDecoder::InternalProcessOutput(IMFSample *pOutputSample, IMFSample *
 	pOutputSample->GetBufferByIndex(0, &pOutputBuffer);
 	pInputBuffer->Lock(&pInputByteBuffer, NULL, NULL);
 	pOutputBuffer->Lock(&pOutputByteBuffer, NULL, NULL);
-	cbOutput = m_pCodec->DecodeFrame(pOutputByteBuffer, pInputByteBuffer, (bKeyFrame != FALSE) /* convert to bool */);
+	cbOutput = m_pCodec->DecodeFrame(pOutputByteBuffer, pInputByteBuffer);
 	pInputBuffer->Unlock();
 	pOutputBuffer->Unlock();
 	pOutputBuffer->SetCurrentLength((DWORD)cbOutput);

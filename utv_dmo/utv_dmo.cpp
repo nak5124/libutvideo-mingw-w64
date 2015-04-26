@@ -1,5 +1,5 @@
 /* 文字コードはＳＪＩＳ 改行コードはＣＲＬＦ */
-/* $Id: utv_dmo.cpp 515 2010-05-06 10:11:26Z umezawa $ */
+/* $Id: utv_dmo.cpp 1289 2015-04-18 14:34:30Z umezawa $ */
 
 // utv_dmo.cpp : DLL エクスポートの実装です。
 
@@ -24,10 +24,18 @@ CUtVideoDMOModule _AtlModule;
 #endif
 
 // DLL エントリ ポイント
-extern "C" BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
+extern "C" BOOL WINAPI DllMain(HINSTANCE hModule, DWORD dwReason, LPVOID lpReserved)
 {
-	hInstance;
-    return _AtlModule.DllMain(dwReason, lpReserved); 
+	if (dwReason == DLL_PROCESS_ATTACH)
+	{
+		LOGPRINTF("DllMain(hModule=%p, dwReason=DLL_PROCESS_ATTACH, lpReserved=%p)", hModule, lpReserved);
+	}
+	else if (dwReason == DLL_PROCESS_DETACH)
+	{
+		LOGPRINTF("DllMain(hModule=%p, dwReason=DLL_PROCESS_DETACH, lpReserved=%p)", hModule, lpReserved);
+	}
+
+	return _AtlModule.DllMain(dwReason, lpReserved); 
 }
 
 #ifdef _MANAGED

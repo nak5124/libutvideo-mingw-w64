@@ -1,11 +1,13 @@
 /* 文字コードはＳＪＩＳ 改行コードはＣＲＬＦ */
-/* $Id: stdafx.h 921 2012-10-06 11:33:16Z umezawa $ */
+/* $Id: stdafx.h 1261 2015-03-28 17:54:00Z umezawa $ */
 
 // stdafx.h : 標準のシステム インクルード ファイルのインクルード ファイル、または
 // 参照回数が多く、かつあまり変更されない、プロジェクト専用のインクルード ファイル
 // を記述します。
 
 #pragma once
+
+#define _CRT_SECURE_NO_WARNINGS 1
 
 #ifndef STRICT
 #define STRICT
@@ -45,3 +47,9 @@
 using namespace ATL;
 
 #include <stdint.h>
+#include <myinttypes.h>
+
+#define LOG_MODULE_NAME "utv_mft "
+
+#include <LogWriter.h>
+#include <LogUtil.h>

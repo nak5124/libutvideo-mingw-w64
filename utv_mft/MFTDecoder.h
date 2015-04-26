@@ -1,5 +1,5 @@
 /* •¶ŽšƒR[ƒh‚Í‚r‚i‚h‚r ‰üsƒR[ƒh‚Í‚b‚q‚k‚e */
-/* $Id: MFTDecoder.h 1143 2014-04-06 13:35:12Z umezawa $ */
+/* $Id: MFTDecoder.h 1266 2015-04-04 07:05:02Z umezawa $ */
 
 // MFTDecoder.h : CMFTDecoder ‚ÌéŒ¾
 
@@ -62,7 +62,7 @@ public:
 
 	int Query(utvf_t outfmt, utvf_t infmt, unsigned int width, unsigned int height, const void *pOutExtraData, size_t cbOutExtraData, const void *pInExtraData, size_t cbInExtraData)
 	{
-		return m_pCodec->DecodeQuery(outfmt, width, height, CBGROSSWIDTH_WINDOWS, pInExtraData, cbInExtraData);
+		return m_pCodec->DecodeQuery(outfmt, width, height, pInExtraData, cbInExtraData);
 	}
 
 public:

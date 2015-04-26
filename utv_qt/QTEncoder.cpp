@@ -1,5 +1,5 @@
 /* •¶ŽšƒR[ƒh‚Í‚r‚i‚h‚r ‰üsƒR[ƒh‚Í‚b‚q‚k‚e */
-/* $Id: QTEncoder.cpp 1214 2015-01-03 13:18:39Z umezawa $ */
+/* $Id: QTEncoder.cpp 1289 2015-04-18 14:34:30Z umezawa $ */
 
 #include "stdafx.h"
 #include "utvideo.h"
@@ -71,7 +71,9 @@ pascal ComponentResult QTEncoderOpen(CQTEncoder *glob, ComponentInstance self)
 	glob = (CQTEncoder *)NewPtrClear(sizeof(CQTEncoder));
 	if (glob == NULL)
 		return memFullErr;
-	
+
+	LOGPRINTF("QTEncoderOpen(glob=%p, self=%p)", glob, self);
+
 	err = QTCodecOpen(glob, self);
 	if (err != noErr)
 	{
@@ -84,6 +86,8 @@ pascal ComponentResult QTEncoderOpen(CQTEncoder *glob, ComponentInstance self)
 
 pascal ComponentResult QTEncoderClose(CQTEncoder *glob, ComponentInstance self)
 {
+	LOGPRINTF("QTEncoderClose(glob=%p, self=%p)", glob, self);
+
 	if (glob != NULL)
 	{
 		QTCodecClose(glob, self);
@@ -144,7 +148,7 @@ pascal ComponentResult QTEncoderPrepareToCompressFrames(CQTEncoder *glob, ICMCom
 
 	imgDescExtSize = glob->codec->EncodeGetExtraDataSize();
 	imgDescExt = NewHandle(imgDescExtSize);
-	glob->codec->EncodeGetExtraData(*imgDescExt, imgDescExtSize, /* XXX */ UTVF_INVALID, (*imageDescription)->width, (*imageDescription)->height, /* XXX */ CBGROSSWIDTH_NATURAL);
+	glob->codec->EncodeGetExtraData(*imgDescExt, imgDescExtSize, /* XXX */ UTVF_INVALID, (*imageDescription)->width, (*imageDescription)->height);
 	AddImageDescriptionExtension(imageDescription, imgDescExt, 'glbl');
 	DisposeHandle(imgDescExt);
 
@@ -224,7 +228,7 @@ pascal ComponentResult QTEncoderEncodeFrame(CQTEncoder *glob, ICMCompressorSourc
 	err = glob->codec->EncodeBegin(utvf, width, height, rowBytes);
 
 //	fprintf(fp, "a %ld\n", err);
-	err = ICMEncodedFrameCreateMutable(glob->session, sourceFrame, glob->codec->EncodeGetOutputSize(utvf, width, height, rowBytes), &encoded);
+	err = ICMEncodedFrameCreateMutable(glob->session, sourceFrame, glob->codec->EncodeGetOutputSize(utvf, width, height), &encoded);
 //	fprintf(fp, "b %ld\n", err);
 	dstPtr = ICMEncodedFrameGetDataPtr(encoded);
 	srcPtr = CVPixelBufferGetBaseAddress(sourcePixelBuffer);

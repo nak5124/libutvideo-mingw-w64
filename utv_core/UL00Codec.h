@@ -1,5 +1,5 @@
 /* ï∂éöÉRÅ[ÉhÇÕÇrÇiÇhÇr â¸çsÉRÅ[ÉhÇÕÇbÇqÇkÇe */
-/* $Id: UL00Codec.h 1182 2014-05-29 12:49:01Z umezawa $ */
+/* $Id: UL00Codec.h 1269 2015-04-04 10:37:05Z umezawa $ */
 
 #pragma once
 #include "Codec.h"
@@ -123,19 +123,20 @@ public:
 	virtual size_t GetStateSize(void);
 	virtual int GetState(void *pState, size_t cb);
 
-	virtual int EncodeBegin(utvf_t infmt, unsigned int width, unsigned int height, size_t cbGrossWidth);
+	virtual int InternalEncodeBegin(utvf_t infmt, unsigned int width, unsigned int height, size_t cbGrossWidth);
 	virtual size_t EncodeFrame(void *pOutput, bool *pbKeyFrame, const void *pInput);
-	virtual int EncodeEnd(void);
+	virtual int InternalEncodeEnd(void);
 	virtual size_t EncodeGetExtraDataSize(void);
-	virtual int EncodeGetExtraData(void *pExtraData, size_t cb, utvf_t infmt, unsigned int width, unsigned int height, size_t cbGrossWidth);
-	virtual size_t EncodeGetOutputSize(utvf_t infmt, unsigned int width, unsigned int height, size_t cbGrossWidth);
-	virtual int EncodeQuery(utvf_t infmt, unsigned int width, unsigned int height, size_t cbGrossWidth);
+	virtual int EncodeGetExtraData(void *pExtraData, size_t cb, utvf_t infmt, unsigned int width, unsigned int height);
+	virtual size_t EncodeGetOutputSize(utvf_t infmt, unsigned int width, unsigned int height);
+	virtual int InternalEncodeQuery(utvf_t infmt, unsigned int width, unsigned int height);
 
-	virtual int DecodeBegin(utvf_t outfmt, unsigned int width, unsigned int height, size_t cbGrossWidth, const void *pExtraData, size_t cbExtraData);
-	virtual size_t DecodeFrame(void *pOutput, const void *pInput, bool bKeyFrame);
-	virtual int DecodeEnd(void);
+	virtual int InternalDecodeBegin(utvf_t outfmt, unsigned int width, unsigned int height, size_t cbGrossWidth, const void *pExtraData, size_t cbExtraData);
+	virtual size_t DecodeFrame(void *pOutput, const void *pInput);
+	virtual int DecodeGetFrameType(bool *pbKeyFrame, const void *pInput);
+	virtual int InternalDecodeEnd(void);
 	virtual size_t DecodeGetOutputSize(utvf_t outfmt, unsigned int width, unsigned int height, size_t cbGrossWidth);
-	virtual int DecodeQuery(utvf_t outfmt, unsigned int width, unsigned int height, size_t cbGrossWidth, const void *pExtraData, size_t cbExtraData);
+	virtual int InternalDecodeQuery(utvf_t outfmt, unsigned int width, unsigned int height, const void *pExtraData, size_t cbExtraData);
 
 protected:
 	virtual int InternalSetState(const void *pState, size_t cb);

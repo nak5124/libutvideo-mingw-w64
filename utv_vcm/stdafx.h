@@ -1,5 +1,5 @@
 /* 文字コードはＳＪＩＳ 改行コードはＣＲＬＦ */
-/* $Id: stdafx.h 705 2011-08-14 10:08:23Z umezawa $ */
+/* $Id: stdafx.h 1258 2015-03-28 14:02:34Z umezawa $ */
 
 // stdafx.h : 標準のシステム インクルード ファイルのインクルード ファイル、または
 // 参照回数が多く、かつあまり変更されない、プロジェクト専用のインクルード ファイル
@@ -7,6 +7,8 @@
 //
 
 #pragma once
+
+#define _CRT_SECURE_NO_WARNINGS 1
 
 // 下で指定された定義の前に対象プラットフォームを指定しなければならない場合、以下の定義を変更してください。
 // 異なるプラットフォームに対応する値に関する最新情報については、MSDN を参照してください。
@@ -43,3 +45,10 @@
 using namespace std;
 
 #include <stdint.h>
+
+#define LOG_MODULE_NAME "utv_vcm "
+
+#include <LogWriter.h>
+#include <LogUtil.h>
+
+#include <myinttypes.h>

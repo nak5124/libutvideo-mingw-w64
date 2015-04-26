@@ -1,5 +1,5 @@
 /* 文字コードはＳＪＩＳ 改行コードはＣＲＬＦ */
-/* $Id: utv_qt.cpp 1207 2014-12-29 01:09:14Z umezawa $ */
+/* $Id: utv_qt.cpp 1289 2015-04-18 14:34:30Z umezawa $ */
 
 // utv_qt.cpp : DLL アプリケーション用にエクスポートされる関数を定義します。
 //
@@ -13,6 +13,15 @@
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 {
+	if (dwReason == DLL_PROCESS_ATTACH)
+	{
+		LOGPRINTF("DllMain(hModule=%p, dwReason=DLL_PROCESS_ATTACH, lpReserved=%p)", hModule, lpReserved);
+	}
+	else if (dwReason == DLL_PROCESS_DETACH)
+	{
+		LOGPRINTF("DllMain(hModule=%p, dwReason=DLL_PROCESS_DETACH, lpReserved=%p)", hModule, lpReserved);
+	}
+
 	return TRUE;
 }
 

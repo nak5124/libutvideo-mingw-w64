@@ -1,5 +1,5 @@
 /* ï∂éöÉRÅ[ÉhÇÕÇrÇiÇhÇr â¸çsÉRÅ[ÉhÇÕÇbÇqÇkÇe */
-/* $Id: DummyCodec.cpp 724 2011-08-25 16:16:00Z umezawa $ */
+/* $Id: DummyCodec.cpp 1269 2015-04-04 10:37:05Z umezawa $ */
 
 #include "stdafx.h"
 #include "utvideo.h"
@@ -101,17 +101,17 @@ size_t CDummyCodec::EncodeGetExtraDataSize(void)
 	return 0;
 }
 
-int CDummyCodec::EncodeGetExtraData(void *pExtraData, size_t cb, utvf_t infmt, unsigned int width, unsigned int height, size_t cbGrossWidth)
+int CDummyCodec::EncodeGetExtraData(void *pExtraData, size_t cb, utvf_t infmt, unsigned int width, unsigned int height)
 {
 	return -1;
 }
 
-size_t CDummyCodec::EncodeGetOutputSize(utvf_t infmt, unsigned int width, unsigned int height, size_t cbGrossWidth)
+size_t CDummyCodec::EncodeGetOutputSize(utvf_t infmt, unsigned int width, unsigned int height)
 {
 	return 0;
 }
 
-int CDummyCodec::EncodeQuery(utvf_t infmt, unsigned int width, unsigned int height, size_t cbGrossWidth)
+int CDummyCodec::EncodeQuery(utvf_t infmt, unsigned int width, unsigned int height)
 {
 	return -1;
 }
@@ -122,8 +122,14 @@ int CDummyCodec::DecodeBegin(utvf_t outfmt, unsigned int width, unsigned int hei
 	return -1;
 }
 
-size_t CDummyCodec::DecodeFrame(void *pOutput, const void *pInput, bool bKeyFrame)
+size_t CDummyCodec::DecodeFrame(void *pOutput, const void *pInput)
 {
+	return 0;
+}
+
+int CDummyCodec::DecodeGetFrameType(bool *pbKeyFrame, const void *pInput)
+{
+	*pbKeyFrame = true;
 	return 0;
 }
 
@@ -137,7 +143,7 @@ size_t CDummyCodec::DecodeGetOutputSize(utvf_t outfmt, unsigned int width, unsig
 	return 0;
 }
 
-int CDummyCodec::DecodeQuery(utvf_t outfmt, unsigned int width, unsigned int height, size_t cbGrossWidth, const void *pExtraData, size_t cbExtraData)
+int CDummyCodec::DecodeQuery(utvf_t outfmt, unsigned int width, unsigned int height, const void *pExtraData, size_t cbExtraData)
 {
 	return -1;
 }
