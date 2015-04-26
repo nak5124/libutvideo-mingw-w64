@@ -1,4 +1,4 @@
-/* $Id: utvideo.h 1212 2015-01-03 07:54:46Z umezawa $ */
+/* $Id: utvideo.h 1259 2015-03-28 14:02:54Z umezawa $ */
 
 #pragma once
 
@@ -128,32 +128,3 @@ typedef uint32_t utvf_t;
 #define UTVF_HDYC ((utvf_t)'HDYC')
 #define UTVF_YV12 ((utvf_t)'YV12')
 #define UTVF_v210 ((utvf_t)'v210')
-
-
-#ifdef _DEBUG
-class DebugEnterLeave
-{
-private:
-    char buf[256];
-public:
-    DebugEnterLeave(char *fmt, ...)
-    {
-        va_list argptr;
-        va_start(argptr, fmt);
-#pragma warning(push)
-#pragma warning(disable:4996)
-        vsnprintf(buf, _countof(buf), fmt, argptr);
-#pragma warning(pop)
-        va_end(argptr);
-        _RPT1(_CRT_WARN, "enter %s\n", buf);
-    }
-
-    ~DebugEnterLeave()
-    {
-        _RPT1(_CRT_WARN, "leave %s\n", buf);
-    }
-};
-#define DEBUG_ENTER_LEAVE(...) class DebugEnterLeave debug_enter_leave_object(__VA_ARGS__)
-#else
-#define DEBUG_ENTER_LEAVE(...)
-#endif

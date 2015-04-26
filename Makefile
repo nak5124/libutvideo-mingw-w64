@@ -32,6 +32,10 @@ OBJS = $(SRCDIR)/Codec.o \
        $(SRCDIR)/UQ00Codec.o \
        $(SRCDIR)/UQY2Codec.o \
        $(SRCDIR)/utv_core.o \
+       $(SRCDIR)/Log.o \
+       $(SRCDIR)/logl/LogUtil.o \
+       $(SRCDIR)/logl/LogWriter.o \
+       $(SRCDIR)/logl/LogPath.o \
        $(ASM_OBJS)
 
 #### main rules ####

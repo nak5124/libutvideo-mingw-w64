@@ -1,4 +1,4 @@
-/* $Id: Codec.cpp 1210 2015-01-02 03:38:47Z umezawa $ */
+/* $Id: Codec.cpp 1251 2015-03-28 09:30:13Z umezawa $ */
 
 #include "stdafx.h"
 #include "utvideo.h"
@@ -57,7 +57,7 @@ DLLEXPORT CCodec *CCodec::CreateInstance(utvf_t utvf, const char *pszInterfaceNa
 {
     int idx;
 
-    DEBUG_ENTER_LEAVE("CCodec::CreateInstance(uint32_t) utvf=%08X", utvf);
+    LOGPRINTF("CCodec::CreateInstance(utvf=%08X)", utvf);
 
     for (idx = 0; idx < _countof(codeclist); idx++)
     {
@@ -67,7 +67,7 @@ DLLEXPORT CCodec *CCodec::CreateInstance(utvf_t utvf, const char *pszInterfaceNa
     if (idx == _countof(codeclist))
         idx = 0;
 
-//  _RPT2(_CRT_WARN, "in=%08X found=%08X\n", utvf, codeclist[idx].utvf);
+    LOGPRINTF(" found utvf=%08X", codeclist[idx].utvf);
 
     return codeclist[idx].pfnCreateInstace(pszInterfaceName);
 }

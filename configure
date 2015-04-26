@@ -105,7 +105,7 @@ SHAREDLIB=""
 IMPLIB=""
 
 CPPFLAGS="$CPPFLAGS"
-CXXFLAGS="$CXXFLAGS -Os -Wall -Wextra -Wno-multichar -Wno-unused-parameter -Wno-sign-compare -I$SRCDIR"
+CXXFLAGS="$CXXFLAGS -Os -Wall -Wextra -Wno-multichar -Wno-unused-parameter -Wno-sign-compare -I$SRCDIR -I${SRCDIR}/logl -I${SRCROOTDIR}/include"
 LDFLAGS="$LDFLAGS -L."
 ASMFLAGS=""
 LIBSTDCPP="-lstdc++"

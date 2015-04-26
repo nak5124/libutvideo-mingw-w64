@@ -1,4 +1,4 @@
-/* $Id: stdafx.h 912 2012-09-17 09:50:39Z umezawa $ */
+/* $Id: stdafx.h 1262 2015-03-28 18:33:39Z umezawa $ */
 
 #pragma once
 
@@ -52,13 +52,6 @@ inline BOOL EnableDlgItem(HWND hwndParent, UINT nID, BOOL bEnable)
 #endif
 #ifndef _MSC_VER // XXX
 #define _ASSERT(x) do {} while(/*CONSTCOND*/0)
-#define _RPT(...) do {} while(/*CONSTCOND*/0)
-#define _RPT0 _RPT
-#define _RPT1 _RPT
-#define _RPT2 _RPT
-#define _RPT3 _RPT
-#define _RPT4 _RPT
-#define _RPT5 _RPT
 #endif
 
 #include <queue>
@@ -66,6 +59,7 @@ inline BOOL EnableDlgItem(HWND hwndParent, UINT nID, BOOL bEnable)
 using namespace std;
 
 #include <stdint.h>
+#include <myinttypes.h>
 
 inline uint32_t ROUNDUP(uint32_t a, uint32_t b)
 {
@@ -97,3 +91,8 @@ inline bool IS_ALIGNED(const void *p, uintptr_t a)
 {
     return IS_ALIGNED((uintptr_t)p, a);
 }
+
+#define LOG_MODULE_NAME "utv_core"
+#define LOGWRITER_OWNER 1
+#include <LogWriter.h>
+#include <LogUtil.h>

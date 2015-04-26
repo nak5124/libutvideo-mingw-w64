@@ -1,4 +1,4 @@
-/* $Id: UQ00Codec.cpp 1187 2014-06-08 11:53:29Z umezawa $ */
+/* $Id: UQ00Codec.cpp 1269 2015-04-04 10:37:05Z umezawa $ */
 
 #include "stdafx.h"
 #include "utvideo.h"
@@ -249,12 +249,12 @@ void CUQ00Codec::CalcStripeMetric(void)
     }
 }
 
-int CUQ00Codec::EncodeBegin(utvf_t infmt, unsigned int width, unsigned int height, size_t cbGrossWidth)
+int CUQ00Codec::InternalEncodeBegin(utvf_t infmt, unsigned int width, unsigned int height, size_t cbGrossWidth)
 {
     int ret;
     STREAMINFO si;
 
-    ret = EncodeQuery(infmt, width, height, cbGrossWidth);
+    ret = EncodeQuery(infmt, width, height);
     if (ret != 0)
         return ret;
 
@@ -262,7 +262,7 @@ int CUQ00Codec::EncodeBegin(utvf_t infmt, unsigned int width, unsigned int heigh
     m_nWidth = width;
     m_nHeight = height;
 
-    EncodeGetExtraData(&si, sizeof(si), infmt, width, height, cbGrossWidth);
+    EncodeGetExtraData(&si, sizeof(si), infmt, width, height);
     ret = CalcFrameMetric(infmt, width, height, cbGrossWidth, &si, sizeof(si));
     if (ret != 0)
         return ret;
@@ -289,7 +289,7 @@ int CUQ00Codec::EncodeBegin(utvf_t infmt, unsigned int width, unsigned int heigh
     return 0;
 }
 
-int CUQ00Codec::EncodeEnd(void)
+int CUQ00Codec::InternalEncodeEnd(void)
 {
     delete m_pCurFrame;
     delete m_pMedianPredicted;
@@ -311,7 +311,7 @@ size_t CUQ00Codec::EncodeGetExtraDataSize(void)
     return sizeof(STREAMINFO);
 }
 
-int CUQ00Codec::EncodeGetExtraData(void *pExtraData, size_t cb, utvf_t infmt, unsigned int width, unsigned int height, size_t cbGrossWidth)
+int CUQ00Codec::EncodeGetExtraData(void *pExtraData, size_t cb, utvf_t infmt, unsigned int width, unsigned int height)
 {
     STREAMINFO *p = (STREAMINFO *)pExtraData;
 
@@ -326,12 +326,12 @@ int CUQ00Codec::EncodeGetExtraData(void *pExtraData, size_t cb, utvf_t infmt, un
     return 0;
 }
 
-size_t CUQ00Codec::EncodeGetOutputSize(utvf_t infmt, unsigned int width, unsigned int height, size_t cbGrossWidth)
+size_t CUQ00Codec::EncodeGetOutputSize(utvf_t infmt, unsigned int width, unsigned int height)
 {
     return ROUNDUP(width, 4) * ROUNDUP(height, 2) * GetRealBitCount() / 8 + 4096; // +4096 はどんぶり勘定。
 }
 
-int CUQ00Codec::EncodeQuery(utvf_t infmt, unsigned int width, unsigned int height, size_t cbGrossWidth)
+int CUQ00Codec::InternalEncodeQuery(utvf_t infmt, unsigned int width, unsigned int height)
 {
     if (width % GetMacroPixelWidth() != 0 || height % GetMacroPixelHeight() != 0)
         return -1;
@@ -387,7 +387,7 @@ void CUQ00Codec::EncodeProc(uint32_t nBandIndex)
     }
 }
 
-size_t CUQ00Codec::DecodeFrame(void *pOutput, const void *pInput, bool bKeyFrame)
+size_t CUQ00Codec::DecodeFrame(void *pOutput, const void *pInput)
 {
     /* const */ uint8_t *p;
     union
@@ -433,11 +433,17 @@ size_t CUQ00Codec::DecodeFrame(void *pOutput, const void *pInput, bool bKeyFrame
     return m_cbRawSize;
 }
 
-int CUQ00Codec::DecodeBegin(utvf_t outfmt, unsigned int width, unsigned int height, size_t cbGrossWidth, const void *pExtraData, size_t cbExtraData)
+int CUQ00Codec::DecodeGetFrameType(bool *pbKeyFrame, const void *pInput)
+{
+    *pbKeyFrame = true;
+    return 0;
+}
+
+int CUQ00Codec::InternalDecodeBegin(utvf_t outfmt, unsigned int width, unsigned int height, size_t cbGrossWidth, const void *pExtraData, size_t cbExtraData)
 {
     int ret;
 
-    ret = DecodeQuery(outfmt, width, height, cbGrossWidth, pExtraData, cbExtraData);
+    ret = DecodeQuery(outfmt, width, height, pExtraData, cbExtraData);
     if (ret != 0)
         return ret;
 
@@ -462,7 +468,7 @@ int CUQ00Codec::DecodeBegin(utvf_t outfmt, unsigned int width, unsigned int heig
     return 0;
 }
 
-int CUQ00Codec::DecodeEnd(void)
+int CUQ00Codec::InternalDecodeEnd(void)
 {
     delete m_pRestoredFrame;
     delete m_pDecodedFrame;
@@ -483,7 +489,7 @@ size_t CUQ00Codec::DecodeGetOutputSize(utvf_t outfmt, unsigned int width, unsign
     return m_cbRawSize;
 }
 
-int CUQ00Codec::DecodeQuery(utvf_t outfmt, unsigned int width, unsigned int height, size_t cbGrossWidth, const void *pExtraData, size_t cbExtraData)
+int CUQ00Codec::InternalDecodeQuery(utvf_t outfmt, unsigned int width, unsigned int height, const void *pExtraData, size_t cbExtraData)
 {
     if (width % GetMacroPixelWidth() != 0 || height % GetMacroPixelHeight() != 0)
         return -1;

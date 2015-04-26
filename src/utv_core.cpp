@@ -1,4 +1,4 @@
-/* $Id: utv_core.cpp 974 2013-03-20 14:07:51Z umezawa $ */
+/* $Id: utv_core.cpp 1289 2015-04-18 14:34:30Z umezawa $ */
 
 #include "stdafx.h"
 #include "utvideo.h"
@@ -10,11 +10,14 @@ HMODULE hModule;
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 {
-    //_RPT3(_CRT_WARN, "DllMain(HMODULE, DWORD, LPVOID) hModule=%p dwReason=%08X lpReserved=%p\n", hModule, dwReason, lpReserved);
-
     if (dwReason == DLL_PROCESS_ATTACH)
     {
+        LOGPRINTF("DllMain(hModule=%p, dwReason=DLL_PROCESS_ATTACH, lpReserved=%p)", hModule, lpReserved);
         ::hModule = hModule;
+    }
+    else if (dwReason == DLL_PROCESS_DETACH)
+    {
+        LOGPRINTF("DllMain(hModule=%p, dwReason=DLL_PROCESS_DETACH, lpReserved=%p)", hModule, lpReserved);
     }
 
     return TRUE;

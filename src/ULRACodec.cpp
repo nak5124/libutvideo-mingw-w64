@@ -1,4 +1,4 @@
-/* $Id: ULRACodec.cpp 1129 2014-02-25 13:00:19Z umezawa $ */
+/* $Id: ULRACodec.cpp 1271 2015-04-04 11:42:09Z umezawa $ */
 
 #include "stdafx.h"
 #include "utvideo.h"
@@ -109,11 +109,11 @@ void CULRACodec::ConvertFromPlanar(uint32_t nBandIndex)
     }
 }
 
-int CULRACodec::DecodeBegin(utvf_t outfmt, unsigned int width, unsigned int height, size_t cbGrossWidth, const void *pExtraData, size_t cbExtraData)
+int CULRACodec::InternalDecodeBegin(utvf_t outfmt, unsigned int width, unsigned int height, size_t cbGrossWidth, const void *pExtraData, size_t cbExtraData)
 {
     int ret;
 
-    ret = CUL00Codec::DecodeBegin(outfmt, width, height, cbGrossWidth, pExtraData, cbExtraData);
+    ret = CUL00Codec::InternalDecodeBegin(outfmt, width, height, cbGrossWidth, pExtraData, cbExtraData);
     if (ret != 0)
         return ret;
 
@@ -123,11 +123,11 @@ int CULRACodec::DecodeBegin(utvf_t outfmt, unsigned int width, unsigned int heig
     return 0;
 }
 
-int CULRACodec::DecodeEnd(void)
+int CULRACodec::InternalDecodeEnd(void)
 {
     delete m_pRawDecoded;
 
-    return CUL00Codec::DecodeEnd();
+    return CUL00Codec::InternalDecodeEnd();
 }
 
 bool CULRACodec::DecodeDirect(uint32_t nBandIndex)
@@ -165,6 +165,8 @@ bool CULRACodec::DecodeDirect(uint32_t nBandIndex)
         }
         break;
     case FI_FLAGS0_INTRAFRAME_PREDICT_WRONG_MEDIAN:
+        if (m_bInterlace)
+            return false;
         switch (m_utvfRaw)
         {
         case UTVF_NFCC_BGRA_BU:

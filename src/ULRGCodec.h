@@ -1,4 +1,4 @@
-/* $Id: ULRGCodec.h 1108 2013-10-13 13:00:27Z umezawa $ */
+/* $Id: ULRGCodec.h 1271 2015-04-04 11:42:09Z umezawa $ */
 
 #pragma once
 #include "Codec.h"
@@ -26,8 +26,8 @@ public:
     virtual ~CULRGCodec(void) {}
     static CCodec *CreateInstance(const char *pszInterfaceName) { return new CULRGCodec(pszInterfaceName); }
 
-    virtual int DecodeBegin(utvf_t outfmt, unsigned int width, unsigned int height, size_t cbGrossWidth, const void *pExtraData, size_t cbExtraData);
-    virtual int DecodeEnd(void);
+    virtual int InternalDecodeBegin(utvf_t outfmt, unsigned int width, unsigned int height, size_t cbGrossWidth, const void *pExtraData, size_t cbExtraData);
+    virtual int InternalDecodeEnd(void);
 
 public:
     virtual const utvf_t *GetEncoderInputFormat(void) { return m_utvfEncoderInput; }
